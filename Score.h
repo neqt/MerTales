@@ -17,13 +17,18 @@ public:
 
 	void ReadFile();
 	void WriteFile();
+	bool Back(RenderWindow& window);
 	void Draw(RenderWindow& window);
 
 	string playerName;
 	int playerScore;
+	Text back;
+	bool backState;
 
 private:
-	Font font;
+	Font fontMain;
+	Font fontMenu;
+	Font fontBack;
 	Text main, scores[5], top[5];
 	FILE* fp;
 	char temp[255];
@@ -38,4 +43,3 @@ private:
 	RectangleShape bg;
 	Texture bgTexture;
 };
-

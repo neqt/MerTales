@@ -9,10 +9,22 @@ public:
 	~Item();
 
 	void Spawn();
-	void Update(FloatRect Collision);
+	void Update();
 	void Draw(RenderWindow& window);
 
-private:
+	RectangleShape shield;
+	RectangleShape bubble;
+	RectangleShape heal;
+	bool shieldState;
+	bool bubbleState;
+	bool healState;
 
+private:
+	Clock clock;
+	float time;
+
+	Texture shieldTexture;
+	Texture bubbleTexture;
+	Texture healTexture;
 };
 

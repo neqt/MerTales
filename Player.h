@@ -13,13 +13,13 @@ public:
 
 	void Update(float deltaTime, FloatRect bounds, Vector2f position);
 	void Draw(RenderWindow& window);
-	bool Collision(FloatRect bounds, Vector2f position);
 	
 	IntRect uvRect;
 	Vector2f GetPosition() { return body.getPosition(); }
 	FloatRect GetBounds() { return body.getGlobalBounds(); }
 	
 	RectangleShape body;
+	int hp, hpMax;
 
 private:
 	RectangleShape heart[5];

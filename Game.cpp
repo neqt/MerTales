@@ -2,16 +2,71 @@
 
 Game::Game() :
 	player(Vector2u(3, 3), 100.f, 200.f), 
-	enemy(Vector2u(3, 2), 0.1f, 1.f)
+	enemy(Vector2u(3, 2), 1.f, 3.f)
 {
-	deltaTime = clock.restart().asSeconds();
-
 	fontScore.loadFromFile("Fonts/editundo.ttf");
 	point = 0;
+
+	hpBar.setSize(Vector2f(300.f, 30.f));
+	hpBar.setFillColor(Color::Cyan);
+	hpBar.setPosition(Vector2f(35.f, 35.f));
+
+	hpBarBack = hpBar;
+	hpBarBack.setFillColor(Color(25, 25, 25, 200));
 }
 
 Game::~Game()
 {
+}
+
+void Game::CoinCollision()
+{
+	for (size_t i = 0; i < 5; i++)
+	{
+		if (coin.shape[i].getGlobalBounds().intersects(player.body.getGlobalBounds()))
+		{
+			point += 10;
+			coin.shape[i].setPosition(float(rand() % (1030 - 50 + 1) + 50), float(rand() % (600 - 300 + 1) + 300));
+		}
+	}
+}
+
+void Game::ItemCollision()
+{
+	//shield
+
+	if (player.body.getGlobalBounds().intersects(item.shield.getGlobalBounds()))
+	{
+		item.shieldState = false;
+		item.bubbleState = true;
+		item.bubble.setPosition(player.body.getPosition().x / 2, player.body.getPosition().y / 2);
+	}
+
+	//heal
+	if (player.body.getGlobalBounds().intersects(item.heal.getGlobalBounds()))
+	{
+		item.healState = false;
+		player.hp += 10;
+	}
+}
+
+void Game::SharkCollision()
+{
+	for (size_t i = 0; i < 2; i++)
+	{
+		if (player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+		{
+			player.hp -= 10;
+			if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f)
+			{
+				player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y);
+			}
+			if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x)
+			{
+				player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y);
+			}
+		}
+	}
 }
 
 void Game::ScoreUpdate()
@@ -25,43 +80,10 @@ void Game::ScoreUpdate()
 	score.setPosition(Vector2f(35, 75));
 }
 
-void Game::CoinCollision()
+void Game::HpUpdate()
 {
-	for (size_t i = 0; i < 5; i++)
-	{
-		if (coin.shape[i].getGlobalBounds().intersects(player.body.getGlobalBounds()))
-		{
-			point += 10;
-			std::cout << " " << point;
-
-			coin.shape[i].setPosition(float(rand() % (1030 - 50 + 1) + 50), float(rand() % (600 - 300 + 1) + 300));
-		}
-	}
-}
-
-void Game::SharkCollision()
-{
-	/*
-	for (size_t i = 0; i < 5; i++)
-	{
-		eraseHeart = false;
-		if (player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
-		{
-			if (shark.position.x + 140.f > body.getPosition().x + 110.f)
-			{
-				body.setPosition(body.getPosition().x - 150.f, body.getPosition().y);
-				eraseHeart = true;
-			}
-			if (position.x + 175.f < body.getPosition().x)
-			{
-				body.setPosition(body.getPosition().x + 150.f, body.getPosition().y);
-				eraseHeart = true;
-			}
-		}
-		//return eraseHeart;
-	}
-	return eraseHeart;
-	*/
+	float hpPercent = static_cast<float>(player.hp / player.hpMax * 100);
+	hpBar.setSize(Vector2f(300.f * hpPercent, hpBar.getSize().y));
 }
 
 void Game::Update()
@@ -75,16 +97,18 @@ void Game::GameOver()
 void Game::Draw(RenderWindow& window)
 {
 	background.Draw(window);
-	
-	//coin.Update(player.GetBounds());
-	coin.Draw(window);
-	window.draw(score);
 	ScoreUpdate();
 	CoinCollision();
-
-	enemy.Update(deltaTime);
+	coin.Draw(window);
+	window.draw(score);
+	ItemCollision();
+	HpUpdate();
+	window.draw(hpBarBack);
+	window.draw(hpBar);
+	item.Draw(window);
+	SharkCollision();
+	enemy.Update();
 	enemy.Draw(window);
 	player.Update(deltaTime, enemy.GetBounds(), enemy.GetPosition());
-	player.Collision(enemy.GetBounds(), enemy.GetPosition());
 	player.Draw(window);
 }

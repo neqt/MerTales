@@ -2,7 +2,7 @@
 
 Background::Background()
 {
-	bgTexture.loadFromFile("Texture/underwater.jpg");
+	bgTexture.loadFromFile("Textures/underwater.jpg");
 
 	bg.setSize(Vector2f(1080.f, 720.f));
 	bg.setPosition(0.0f, 0.0f);

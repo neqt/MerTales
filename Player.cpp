@@ -5,9 +5,10 @@ Player::Player(Vector2u imageCount, float switchTime, float speed)
 	this->speed = speed;
 	row = 0;
 
-	playerTexture.loadFromFile("Texture/merman.png");
+	playerTexture.loadFromFile("Textures/merman.png");
 	body.setTexture(&playerTexture);
 	body.setSize(Vector2f(120.f, 100.f));
+	//body.setSize(Vector2f(90.f, 100.f));
 	body.setPosition(450.f, 300.f);
 	uvRect.width = playerTexture.getSize().x / 3;
 	uvRect.height = playerTexture.getSize().y / 4;
@@ -15,7 +16,10 @@ Player::Player(Vector2u imageCount, float switchTime, float speed)
 
 	animationFrame = 0;
 
-	playerHeart.loadFromFile("Texture/heart.png");
+	hpMax = 10;
+	hp = hpMax;
+
+	playerHeart.loadFromFile("Textures/heart.png");
 	heart[0].setTexture(&playerHeart);
 	heart[0].setSize(Vector2f(40.f, 40.f));
 	heart[0].setPosition(30.f, 30.f);
@@ -83,30 +87,6 @@ void Player::Update(float deltaTime, FloatRect bounds, Vector2f position)
 
 	body.move(movement);
 	
-}
-
-bool Player::Collision(FloatRect bounds, Vector2f position)
-{
-	for (size_t i = 0; i < 5; i++)
-	{
-		eraseHeart = false;
-		if (body.getGlobalBounds().intersects(bounds))
-		{
-			if (position.x + 140.f > body.getPosition().x + 110.f)
-			{
-				body.setPosition(body.getPosition().x - 150.f, body.getPosition().y);
-				eraseHeart = true;
-			}
-			if (position.x + 175.f < body.getPosition().x)
-			{
-				body.setPosition(body.getPosition().x + 150.f, body.getPosition().y);
-				eraseHeart = true;
-			}
-		}
-		//return eraseHeart;
-	}
-	return eraseHeart;
-
 }
 
 void Player::Draw(RenderWindow& window)

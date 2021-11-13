@@ -7,6 +7,7 @@
 #include "Coin.h"
 #include "Enemy.h"
 #include "Animation.h"
+#include "Item.h"
 using namespace sf;
 using namespace std;
 
@@ -15,24 +16,30 @@ class Game
 public:
 	Game();
 	~Game();
-	void ScoreUpdate();
+	
 	void CoinCollision();
+	void ItemCollision();
 	void SharkCollision();
+	void ScoreUpdate();
+	void HpUpdate();
 	void Update();
 	void GameOver();
 	void Draw(RenderWindow& window);
 
 private:
 	Player player;
+	RectangleShape hpBar;
+	RectangleShape hpBarBack;
 	
+	Coin coin;
 	Font fontScore;
 	Text score;
 	size_t point;
-	
-	Coin coin;
 
 	Enemy enemy;
 	
+	Item item;
+
 	Background background;
 
 	float deltaTime = 0.0f;

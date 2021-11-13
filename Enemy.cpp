@@ -7,7 +7,7 @@ Enemy::Enemy(Vector2u imageCount, float switchTime, float speed) :
 	row = 1;
 	faceRight = true;
 
-	sharkTexture.loadFromFile("Texture/shark5.png");
+	sharkTexture.loadFromFile("Textures/shark4.png");
 
 	shark.setSize(Vector2f(200.f, 125.f));
 	shark.setTexture(&sharkTexture);
@@ -23,12 +23,12 @@ void Enemy::Spawn()
 	shark.setPosition(-250, float(rand() % (500 - 200 + 1) + 200));
 }
 
-void Enemy::Update(float deltaTime)
+void Enemy::Update()
 {
+	time = clock.getElapsedTime().asSeconds();
 	if (faceRight)
 	{
 		shark.move(0.5f, 0.f);
-		//std::cout << " " << int(shark.getPosition().x);
 		if (shark.getPosition().x == 1100)
 		{
 			shark.setPosition(shark.getPosition().x, float(rand() % (500 - 200 + 1) + 200));
@@ -38,7 +38,6 @@ void Enemy::Update(float deltaTime)
 	else
 	{
 		shark.move(-0.5f, 0.f);
-		//std::cout << " " << int(shark.getPosition().x);
 		if (shark.getPosition().x == -250)
 		{
 			shark.setPosition(shark.getPosition().x, float(rand() % (500 - 200 + 1) + 200));
@@ -46,7 +45,7 @@ void Enemy::Update(float deltaTime)
 		}
 	}
 
-	animation.Update(row, deltaTime, faceRight);
+	animation.Update(row, time, faceRight);
 	shark.setTextureRect(animation.uvRect);
 }
 

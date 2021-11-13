@@ -1,12 +1,17 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "Score.h"
 
 Score::Score()
 {
-	font.loadFromFile("Fonts/editundo.ttf");
-	Text ttext("Leaderboard", font, 80);
+	bgTexture.loadFromFile("Textures/island2.jpg");
+	bg.setSize(Vector2f(1080.f, 720.f));
+	bg.setPosition(0.0f, 0.0f);
+	bg.setTexture(&bgTexture);
+
+	fontMenu.loadFromFile("Fonts/editundo.ttf");
+	Text ttext("Leaderboard", fontMenu, 80);
 	main = ttext;
-	main.setFillColor(Color::White);
+	main.setFillColor(Color::Black);
 	main.setOrigin(Vector2f(main.getGlobalBounds().width / 2, 0));
 	main.setPosition(Vector2f(540, 50));
 	for (int i = 0; i < 5; i++)
@@ -14,8 +19,15 @@ Score::Score()
 		scores[i].setCharacterSize(40);
 		scores[i].setFillColor(sf::Color::White);
 		scores[i].setPosition(540, 200 + (i * 80));
-		scores[i].setFont(font);
+		scores[i].setFont(fontMenu);
 	}
+
+	fontBack.loadFromFile("Fonts/hachicro.ttf"); //พิกเซลกลมดอกไม้
+	back.setFont(fontBack);
+	back.setFillColor(Color::Black);
+	back.setCharacterSize(60);
+	back.setString("<   >");
+	back.setPosition(900, 625);
 }
 
 Score::~Score()
@@ -56,8 +68,21 @@ void Score::WriteFile()
 	fclose(this->fp);
 }
 
+bool Score::Back(RenderWindow& window)
+{
+	if (Keyboard::isKeyPressed(Keyboard::Left))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Score::Draw(RenderWindow& window)
 {
+	window.draw(bg);
 	stringstream ss[5];
 	ReadFile();
 	fclose(this->fp);
@@ -74,4 +99,5 @@ void Score::Draw(RenderWindow& window)
 	}
 
 	window.draw(main);
+	window.draw(back);
 }

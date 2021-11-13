@@ -15,13 +15,11 @@ public:
 	void Spawn();
 	void Update(FloatRect Collision);
 	void Draw(RenderWindow& window);
+
 	RectangleShape shape[5];
 
 private:
 	Texture coinTexture;
 	bool eraseCoin;
 	int point;
-
-	Font font;
-	Text score;
 };

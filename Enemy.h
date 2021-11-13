@@ -12,7 +12,7 @@ public:
 	~Enemy();
 
 	void Spawn();
-	void Update(float deltaTime);
+	void Update();
 	void Draw(RenderWindow& window);
 
 	IntRect uvRect;
@@ -25,7 +25,7 @@ private:
 	Animation animation;
 	Texture sharkTexture;
 	Clock clock;
-	long double time;
+	float time;
 	unsigned int row;
 	float speed;
 	bool faceRight = true;

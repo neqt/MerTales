@@ -7,7 +7,7 @@ Animation::Animation(Vector2u imageCount, float switchTime)
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	sharkTexture.loadFromFile("Texture/shark5.png");
+	sharkTexture.loadFromFile("Textures/shark4.png");
 
 	uvRect.width = sharkTexture.getSize().x / 3;
 	uvRect.height = sharkTexture.getSize().y / 2;
@@ -17,10 +17,10 @@ Animation::~Animation()
 {
 }
 
-void Animation::Update(int row, float deltaTime, bool faceRight)
+void Animation::Update(int row, float time, bool faceRight)
 {
 	currentImage.y = row;
-	totalTime += deltaTime;
+	totalTime += time;
 
 	if (totalTime >= switchTime)
 	{

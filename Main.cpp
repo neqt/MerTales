@@ -64,11 +64,22 @@ int main()
         if (menu.scoreState) 
         {
             score.Draw(window);
+            if (score.Back(window))
+            {
+                menu.scoreState = false;
+                menuState = true;
+            }
         }
         if (menu.aboutState) 
         {
             about.Draw(window);
+            if (about.Back(window))
+            {
+                menu.aboutState = false;
+                menuState = true;
+            }
         }
+        
         window.display();
         window.clear();
     }
