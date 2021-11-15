@@ -7,7 +7,7 @@ Animation::Animation(Vector2u imageCount, float switchTime)
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	sharkTexture.loadFromFile("Textures/shark4.png");
+	sharkTexture.loadFromFile("Textures/shark5.png");
 
 	uvRect.width = sharkTexture.getSize().x / 3;
 	uvRect.height = sharkTexture.getSize().y / 2;

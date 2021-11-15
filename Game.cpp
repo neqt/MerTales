@@ -4,15 +4,9 @@ Game::Game() :
 	player(Vector2u(3, 3), 100.f, 200.f), 
 	enemy(Vector2u(3, 2), 1.f, 3.f)
 {
-	fontScore.loadFromFile("Fonts/editundo.ttf");
+	font.loadFromFile("Fonts/editundo.ttf");
 	point = 0;
-
-	hpBar.setSize(Vector2f(300.f, 30.f));
-	hpBar.setFillColor(Color::Cyan);
-	hpBar.setPosition(Vector2f(35.f, 35.f));
-
-	hpBarBack = hpBar;
-	hpBarBack.setFillColor(Color(25, 25, 25, 200));
+	hp = 10;
 }
 
 Game::~Game()
@@ -46,7 +40,7 @@ void Game::ItemCollision()
 	if (player.body.getGlobalBounds().intersects(item.heal.getGlobalBounds()))
 	{
 		item.healState = false;
-		player.hp += 10;
+		//hp += 2;
 	}
 }
 
@@ -56,7 +50,7 @@ void Game::SharkCollision()
 	{
 		if (player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
 		{
-			player.hp -= 10;
+			hp--;
 			if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f)
 			{
 				player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y);
@@ -71,7 +65,7 @@ void Game::SharkCollision()
 
 void Game::ScoreUpdate()
 {
-	score.setFont(fontScore);
+	score.setFont(font);
 	score.setFillColor(Color::Black);
 	score.setCharacterSize(36);
 	stringstream ss;
@@ -82,8 +76,20 @@ void Game::ScoreUpdate()
 
 void Game::HpUpdate()
 {
-	float hpPercent = static_cast<float>(player.hp / player.hpMax * 100);
-	hpBar.setSize(Vector2f(300.f * hpPercent, hpBar.getSize().y));
+	if (hp <= 10 && hp >= 0)
+	{
+		hpBar.setSize(Vector2f((float)hp * 30.f, 30.f));
+	}
+	else if (hp > 10)
+	{
+		hpBar.setSize(Vector2f(300.f, 30.f));
+	}
+	hpBar.setFillColor(Color::Cyan);
+	hpBar.setPosition(Vector2f(35.f, 35.f));
+
+	hpBarBase.setSize(Vector2f(300.f, 30.f));
+	hpBarBase.setFillColor(Color(25, 25, 25, 200));
+	hpBarBase.setPosition(Vector2f(35.f, 35.f));
 }
 
 void Game::Update()
@@ -92,23 +98,46 @@ void Game::Update()
 
 void Game::GameOver()
 {
+	over.setSize(Vector2f(500.f, 400.f));
+	over.setFillColor(Color(25, 25, 25, 200));
+	over.setOrigin(over.getGlobalBounds().width / 2, over.getGlobalBounds().height / 2);
+	over.setPosition(540.f, 360.f);
+
+	gameOver.setFont(font);
+	gameOver.setFillColor(Color::White);
+	gameOver.setCharacterSize(50);
+	gameOver.setString("Game Over");
+	//gameOver.setCharacterSize(36);
+	//gameOver.setString("Press enter to go back");
+	gameOver.setOrigin(gameOver.getGlobalBounds().width / 2, over.getGlobalBounds().height / 2);
+	gameOver.setPosition(540.f, 360.f);
 }
 
 void Game::Draw(RenderWindow& window)
 {
-	background.Draw(window);
-	ScoreUpdate();
-	CoinCollision();
-	coin.Draw(window);
-	window.draw(score);
-	ItemCollision();
-	HpUpdate();
-	window.draw(hpBarBack);
-	window.draw(hpBar);
-	item.Draw(window);
-	SharkCollision();
-	enemy.Update();
-	enemy.Draw(window);
-	player.Update(deltaTime, enemy.GetBounds(), enemy.GetPosition());
-	player.Draw(window);
+	if (hp > 0)
+	{
+		background.Draw(window);
+		ScoreUpdate();
+		CoinCollision();
+		coin.Draw(window);
+		window.draw(score);
+		ItemCollision();
+		HpUpdate();
+		window.draw(hpBarBase);
+		window.draw(hpBar);
+		item.Draw(window);
+		SharkCollision();
+		enemy.Update();
+		enemy.Draw(window);
+		player.Update(deltaTime);
+		player.Draw(window);
+	}
+	else
+	{
+		background.Draw(window);
+		GameOver();
+		window.draw(over);
+		window.draw(gameOver);
+	}
 }

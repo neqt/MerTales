@@ -11,7 +11,7 @@ public:
 	Player(Vector2u imageCount, float switchTime, float speed);
 	~Player();
 
-	void Update(float deltaTime, FloatRect bounds, Vector2f position);
+	void Update(float deltaTime);
 	void Draw(RenderWindow& window);
 	
 	IntRect uvRect;
@@ -19,7 +19,6 @@ public:
 	FloatRect GetBounds() { return body.getGlobalBounds(); }
 	
 	RectangleShape body;
-	int hp, hpMax;
 
 private:
 	RectangleShape heart[5];

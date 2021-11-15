@@ -16,9 +16,6 @@ Player::Player(Vector2u imageCount, float switchTime, float speed)
 
 	animationFrame = 0;
 
-	hpMax = 10;
-	hp = hpMax;
-
 	playerHeart.loadFromFile("Textures/heart.png");
 	heart[0].setTexture(&playerHeart);
 	heart[0].setSize(Vector2f(40.f, 40.f));
@@ -45,7 +42,7 @@ Player::~Player()
 {
 }
 
-void Player::Update(float deltaTime, FloatRect bounds, Vector2f position)
+void Player::Update(float deltaTime)
 {
 	time = clock.getElapsedTime().asMilliseconds();
 	Vector2f movement(0.0f, 0.0f);

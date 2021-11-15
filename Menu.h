@@ -37,8 +37,10 @@ private:
 	Text dev;
 	Text menu[maxItem];
 
-	char name;
+	string userName;
+	vector<char> name;
 	Text user;
+
 	RectangleShape bg;
 	Texture bgTexture;
 	Vector2f position;

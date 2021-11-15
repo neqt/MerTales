@@ -70,7 +70,7 @@ int main()
                 menuState = true;
             }
         }
-        if (menu.aboutState) 
+        if (menu.aboutState)
         {
             about.Draw(window);
             if (about.Back(window))

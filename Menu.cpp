@@ -82,7 +82,14 @@ void Menu::MoveDown()
 
 void Menu::UserName()
 {
-
+	userName = "";
+	user.setFont(font);
+	user.setString("Enter your name");
+	//user.setPosition()
+	for (int i = 0; i < name.size(); i++)
+	{
+		userName += name[i];
+	}
 }
 
 void Menu::Draw(RenderWindow& window)
@@ -95,7 +102,11 @@ void Menu::Draw(RenderWindow& window)
 
 	if (menu[0].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter)) 
 	{
-		gameState = true;
+		/*userState = true;
+		if (name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Enter))
+		{*/
+			gameState = true;
+		//}
 	}
 	if (menu[1].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{

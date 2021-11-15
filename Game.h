@@ -29,10 +29,11 @@ public:
 private:
 	Player player;
 	RectangleShape hpBar;
-	RectangleShape hpBarBack;
-	
+	RectangleShape hpBarBase;
+	int hp;
+
 	Coin coin;
-	Font fontScore;
+	Font font;
 	Text score;
 	size_t point;
 
@@ -41,6 +42,9 @@ private:
 	Item item;
 
 	Background background;
+
+	Text gameOver;
+	RectangleShape over;
 
 	float deltaTime = 0.0f;
 	Clock clock;
