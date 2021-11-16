@@ -15,7 +15,6 @@ Player::Player(Vector2u imageCount, float switchTime, float speed)
 	body.setTextureRect(sf::IntRect(0, 0, uvRect.width, uvRect.height));
 
 	animationFrame = 0;
-
 }
 
 Player::~Player()
@@ -24,31 +23,36 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	ptime = pclock.getElapsedTime().asMilliseconds();
 	time = clock.getElapsedTime().asMilliseconds();
 	Vector2f movement(0.0f, 0.0f);
 
-	if (Keyboard::isKeyPressed(Keyboard::A) && body.getPosition().x > 0)
+	if (Keyboard::isKeyPressed(Keyboard::A) && body.getPosition().x > 0 && ptime > 5)
 	{
-		body.move(-0.5f, 0.f);
+		pclock.restart();
+		body.move(-1.5f, 0.f);
 		//movement.x -= speed * deltaTime;
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 1, uvRect.width, uvRect.height));
 	}
-	if (Keyboard::isKeyPressed(Keyboard::D) && body.getPosition().x < 950)
+	if (Keyboard::isKeyPressed(Keyboard::D) && body.getPosition().x < 950 && ptime > 5)
 	{
-		body.move(0.5f, 0.f);
+		pclock.restart();
+		body.move(1.5f, 0.f);
 		//movement.x += speed * deltaTime;
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 2, uvRect.width, uvRect.height));
 	}
-	if (sf::Keyboard::isKeyPressed(Keyboard::W) && body.getPosition().y > 200)
+	if (sf::Keyboard::isKeyPressed(Keyboard::W) && body.getPosition().y > 200 && ptime > 5)
 	{
-		body.move(0.f, -0.5f);
+		pclock.restart();
+		body.move(0.f, -1.5f);
 		//movement.y -= speed * deltaTime;
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 3, uvRect.width, uvRect.height));
 	}
-	if (sf::Keyboard::isKeyPressed(Keyboard::S) && body.getPosition().y < 600)
+	if (sf::Keyboard::isKeyPressed(Keyboard::S) && body.getPosition().y < 600 && ptime > 5)
 	{
+		pclock.restart();
 		//movement.y += speed * deltaTime;
-		body.move(0.f, 0.5f);
+		body.move(0.f, 1.5f);
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 0, uvRect.width, uvRect.height));
 	}
 	if (time > 100)

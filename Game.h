@@ -22,10 +22,9 @@ public:
 	void SharkCollision();
 	void ScoreUpdate();
 	void HpUpdate();
-	void Update();
+	void DrawGameOver();
 	bool GameOver();
-	bool UserName();
-	void EnterName();
+	void Reset();
 	void Draw(RenderWindow& window);
 
 private:

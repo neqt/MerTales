@@ -7,9 +7,6 @@ Game::Game() :
 	font.loadFromFile("Fonts/editundo.ttf");
 	point = 0;
 	hp = 10;
-
-
-	
 }
 
 Game::~Game()
@@ -31,19 +28,25 @@ void Game::CoinCollision()
 void Game::ItemCollision()
 {
 	//shield
-
-	if (player.body.getGlobalBounds().intersects(item.shield.getGlobalBounds()))
+	if (player.body.getGlobalBounds().intersects(item.shield.getGlobalBounds()) && item.shieldState)
 	{
 		item.shieldState = false;
 		item.bubbleState = true;
-		item.bubble.setPosition(player.body.getPosition().x / 2, player.body.getPosition().y / 2);
 	}
+	item.bubble.setPosition(player.body.getPosition().x, player.body.getPosition().y);
 
 	//heal
 	if (player.body.getGlobalBounds().intersects(item.heal.getGlobalBounds()) && item.healState)
 	{
 		item.healState = false;
 		hp += 2;
+	}
+
+	//bonus
+	if (player.body.getGlobalBounds().intersects(item.bonus.getGlobalBounds()) && item.bonusState)
+	{
+		item.bonusState = false;
+		point *= 2;
 	}
 }
 
@@ -79,7 +82,6 @@ void Game::ScoreUpdate()
 
 void Game::HpUpdate()
 {
-	
 	if (hp <= 10 && hp >= 0)
 	{
 		hpBar.setSize(Vector2f((float)hp * 30.f, 30.f));
@@ -89,8 +91,6 @@ void Game::HpUpdate()
 		hpBar.setSize(Vector2f(300.f, 30.f));
 	}
 	
-	//hpBar.setSize(Vector2f((float)hp * 30.f, 30.f));
-
 	hpBar.setFillColor(Color::Cyan);
 	hpBar.setPosition(Vector2f(35.f, 35.f));
 
@@ -99,11 +99,7 @@ void Game::HpUpdate()
 	hpBarBase.setPosition(Vector2f(35.f, 35.f));
 }
 
-void Game::Update()
-{
-}
-
-bool Game::GameOver()
+void Game::DrawGameOver()
 {
 	overTexture.loadFromFile("Textures/gameover.png");
 	overbox.setSize(Vector2f(540.f, 180.f));
@@ -119,8 +115,11 @@ bool Game::GameOver()
 	//gameOver.setString("Press enter to go back");
 	gameOver.setOrigin(gameOver.getGlobalBounds().width / 2, gameOver.getGlobalBounds().height / 2);
 	gameOver.setPosition(540.f, 360.f);
+}
 
-	if (hp <= 0 && Keyboard::isKeyPressed(Keyboard::Enter))
+bool Game::GameOver()
+{
+	if (hp <= 0)
 	{
 		return true;
 	}
@@ -130,101 +129,38 @@ bool Game::GameOver()
 	}
 }
 
-bool Game::UserName()
+void Game::Reset()
 {
-	if (name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Right))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void Game::EnterName()
-{
-	//user name state
-	bgTexture.loadFromFile("Textures/island2.jpg");
-	bg.setSize(Vector2f(1080.f, 720.f));
-	bg.setPosition(0.0f, 0.0f);
-	bg.setTexture(&bgTexture);
-
-	userTexture.loadFromFile("Textures/username.png");
-	userbox.setSize(Vector2f(540.f, 180.f));
-	userbox.setOrigin(userbox.getGlobalBounds().width / 2, userbox.getGlobalBounds().height / 2);
-	userbox.setPosition(540.f, 360.f);
-	userbox.setTexture(&userTexture);
-
-	userName = "";
-	for (int i = 0; i < name.size(); i++)
-	{
-		userName += name[i];
-	}
-	user.setFont(font);
-	user.setFillColor(Color::Black);
-	user.setCharacterSize(50);
-	if (name.empty())
-	{
-		user.setFillColor(sf::Color(255, 255, 255, 100));
-		user.setString("Enter your name");
-	}
-	else
-	{
-		user.setFillColor(sf::Color::Black);
-		user.setString(userName);
-	}
-	user.setOrigin(user.getGlobalBounds().width / 2, user.getGlobalBounds().height / 2);
-	user.setPosition(540, 340);
+	hp = 10;
+	point = 0;
 }
 
 void Game::Draw(RenderWindow& window)
-{/*
-	if (!UserName())
+{
+	if (hp > 0)
 	{
-		EnterName();
-		window.draw(bg);
-		window.draw(userbox);
-		window.draw(user);
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::TextEntered)
-			{
-				name.push_back(event.text.unicode);
-			}
-			if (!name.empty() && name.back() == 10 && 
-				!((name.back() >= 'a' && name.back() <= 'z') || (name.back() >= 'A' && name.back() <= 'Z')))
-			{
-				name.pop_back();
-			}
-		}
+		background.Draw(window);
+		ScoreUpdate();
+		CoinCollision();
+		coin.Draw(window);
+		window.draw(score);
+		ItemCollision();
+		HpUpdate();
+		window.draw(hpBarBase);
+		window.draw(hpBar);
+		item.Draw(window);
+		SharkCollision();
+		enemy.Update();
+		enemy.Draw(window);
+		player.Update(deltaTime);
+		player.Draw(window);
 	}
-	else if (UserName())
-	{*/
-		if (hp > 0)
-		{
-			background.Draw(window);
-			ScoreUpdate();
-			CoinCollision();
-			coin.Draw(window);
-			window.draw(score);
-			ItemCollision();
-			HpUpdate();
-			window.draw(hpBarBase);
-			window.draw(hpBar);
-			item.Draw(window);
-			SharkCollision();
-			enemy.Update();
-			enemy.Draw(window);
-			player.Update(deltaTime);
-			player.Draw(window);
-		}
-		else
-		{
-			background.Draw(window);
-			GameOver();
-			window.draw(overbox);
-			window.draw(gameOver);
-		}
-	//}
+	else
+	{
+		background.Draw(window);
+		window.draw(overbox);
+		window.draw(gameOver);
+		DrawGameOver();
+	}
+
 }

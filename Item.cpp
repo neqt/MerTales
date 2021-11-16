@@ -11,7 +11,7 @@ Item::Item()
 	shield.setSize(Vector2f(40.f, 45.f));
 	shield.setPosition(randItem(100, 940), randItem(200, 575));
 	shield.setTexture(&shieldTexture);
-	shieldState = false;
+	shieldState = true;
 
 	bubbleTexture.loadFromFile("Textures/bubble.png");
 	bubble.setSize(Vector2f(125.f, 125.f));
@@ -25,7 +25,11 @@ Item::Item()
 	heal.setTexture(&healTexture);
 	healState = true;
 
-
+	bonusTexture.loadFromFile("Textures/bonus.png");
+	bonus.setSize(Vector2f(40.f, 40.f));
+	bonus.setPosition(randItem(100, 940), randItem(200, 575));
+	bonus.setTexture(&bonusTexture);
+	bonusState = true;
 }
 
 Item::~Item()
@@ -56,5 +60,9 @@ void Item::Draw(RenderWindow& window)
 	if (healState)
 	{
 		window.draw(heal);
+	}
+	if (bonusState)
+	{
+		window.draw(bonus);
 	}
 }

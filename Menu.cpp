@@ -93,7 +93,7 @@ void Menu::MoveDown()
 
 void Menu::GetName(string name)
 {
-
+	score.playerName = name;
 }
 
 void Menu::Draw(RenderWindow& window)
@@ -108,7 +108,8 @@ void Menu::Draw(RenderWindow& window)
 
 	if (menu[0].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter)) 
 	{
-		gameState = true;
+		game.Reset();
+		userState = true;
 		menuState = false;/*
 		if (username.name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Right))
 		{

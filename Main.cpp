@@ -34,13 +34,13 @@ int main()
     bool userState = false;
 
     srand(time(NULL));
-    
+
     Menu menu(window.getSize().x, window.getSize().y);
-    Username userName;
+    Username username;
     Game game;
     Score score;
     About about;
-    
+
     while (window.isOpen())
     {
         Event event;
@@ -77,19 +77,17 @@ int main()
                 break;
             }
 
-            /*
-            if (menu.userState) 
+            
+            if (menu.userState)
             {
                 if (event.type == sf::Event::TextEntered) {
                     name.push_back(event.text.unicode);
                 }
-
                 if (!name.empty() && name.back() == 8)
                 {
                     name.pop_back();
                     if (!name.empty())
                         name.pop_back();
-
                 }
                 if (name.size() != 1 && !name.empty() && name.back() == 13)
                 {
@@ -104,40 +102,42 @@ int main()
                     name.pop_back();
                 }
                 if (Keyboard::isKeyPressed(Keyboard::Enter) && name.size() != 0) {
+                    menu.GetName(userName);
                     menu.userState = false;
                     menu.gameState = true;
                 }
-            }*/
+            }
         }
         if (menu.menuState)
         {
             menu.Draw(window);
-        }/*
-        if (menu.userState) 
+        }
+        if (menu.userState)
         {
             //username.Draw(window);
-            UserName();/*
-            if (userName.Next())
+            UserName();
+            if (username.Back())
+            {
+                menu.userState = false;
+                menu.menuState = true;
+            }
+            if (username.Next())
             {
                 menu.userState = false;
                 menu.gameState = true;
             }
-            if (userName.Back())
-            {
-                menu.userState = false;
-                menu.menuState = true;
-            }*/
-        //}
+        }
         if (menu.gameState)
         {
             game.Draw(window);
-            if (game.GameOver())
+            if (game.GameOver() && Keyboard::isKeyPressed(Keyboard::Right))
             {
                 menu.gameState = false;
+                menu.userState = false;
                 menu.menuState = true;
             }
         }
-        if (menu.scoreState) 
+        if (menu.scoreState)
         {
             score.Draw(window);
             if (score.Back(window))
@@ -197,7 +197,7 @@ void UserName()
     }
     user.setOrigin(user.getGlobalBounds().width / 2, user.getGlobalBounds().height / 2);
     user.setPosition(540, 340);
-    
+
     window.draw(bg);
     window.draw(userbox);
     window.draw(user);

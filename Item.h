@@ -29,5 +29,6 @@ private:
 	Texture shieldTexture;
 	Texture bubbleTexture;
 	Texture healTexture;
+	Texture bonusTexture;
 };
 

@@ -22,8 +22,11 @@ public:
 
 private:
 	Texture playerTexture;
+	Clock pclock;
+	long double ptime;
 	Clock clock;
 	long double time;
+	
 	unsigned int row;
 	float speed;
 	int animationFrame;
