@@ -12,10 +12,10 @@ Menu::Menu(float width, float height)
 	//fontMain.loadFromFile("Fonts/Fipps-Regular.otf");
 	main.setFont(fontMain);
 	main.setFillColor(Color::Black);
-	main.setCharacterSize(175);
+	main.setCharacterSize(185);
 	main.setString("MerTales");
 	main.setOrigin(main.getLocalBounds().width / 4, main.getLocalBounds().height / 8);
-	main.setPosition(Vector2f(width / 4, height / 8));
+	main.setPosition(Vector2f(width / 4, 60));
 
 	fontMenu.loadFromFile("Fonts/hachicro.ttf"); //พิกเซลกลมดอกไม้
 	menu[0].setFont(fontMenu);
@@ -54,6 +54,17 @@ Menu::Menu(float width, float height)
 	dev.setOrigin(dev.getLocalBounds().width / 4, dev.getLocalBounds().height / 1.25);
 	dev.setPosition(Vector2f(width / 4, height / 1.25));
 
+	menuTexture.loadFromFile("Textures/mainmenu.png");
+	menubox.setSize(Vector2f(350.f, 650.f));
+	menubox.setOrigin(menubox.getLocalBounds().width / 1.75, menubox.getLocalBounds().height / 2);
+	menubox.setPosition(Vector2f(width / 1.25, height / 2));
+	menubox.setTexture(&menuTexture);
+
+	menuState = true;
+	userState = false;
+	gameState = false;
+	scoreState = false;
+	aboutState = false;
 }
 
 Menu::~Menu()
@@ -80,21 +91,16 @@ void Menu::MoveDown()
 	}
 }
 
-void Menu::UserName()
+void Menu::GetName(string name)
 {
-	userName = "";
-	user.setFont(font);
-	user.setString("Enter your name");
-	//user.setPosition()
-	for (int i = 0; i < name.size(); i++)
-	{
-		userName += name[i];
-	}
+
 }
 
 void Menu::Draw(RenderWindow& window)
 {
 	window.draw(bg);
+	//window.draw(menubox);
+
 	for (size_t i = 0; i < maxItem; i++)
 	{
 		window.draw(menu[i]);
@@ -102,19 +108,23 @@ void Menu::Draw(RenderWindow& window)
 
 	if (menu[0].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter)) 
 	{
-		/*userState = true;
-		if (name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Enter))
-		{*/
+		gameState = true;
+		menuState = false;/*
+		if (username.name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Right))
+		{
 			gameState = true;
-		//}
+			userState = false;
+		}*/
 	}
 	if (menu[1].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{
 		scoreState = true;
+		menuState = false;
 	}
 	if (menu[2].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{
 		aboutState = true;
+		menuState = false;
 	}
 	if (menu[3].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{

@@ -15,19 +15,16 @@ public:
 	void Draw(RenderWindow& window);
 	
 	IntRect uvRect;
-	Vector2f GetPosition() { return body.getPosition(); }
-	FloatRect GetBounds() { return body.getGlobalBounds(); }
+	//Vector2f GetPosition() { return body.getPosition(); }
+	//FloatRect GetBounds() { return body.getGlobalBounds(); }
 	
 	RectangleShape body;
 
 private:
-	RectangleShape heart[5];
 	Texture playerTexture;
-	Texture playerHeart;
 	Clock clock;
 	long double time;
 	unsigned int row;
 	float speed;
 	int animationFrame;
-	bool eraseHeart;
 };

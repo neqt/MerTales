@@ -23,7 +23,6 @@ public:
 	string playerName;
 	int playerScore;
 	Text back;
-	bool backState;
 
 private:
 	Font fontMain;

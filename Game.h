@@ -23,17 +23,21 @@ public:
 	void ScoreUpdate();
 	void HpUpdate();
 	void Update();
-	void GameOver();
+	bool GameOver();
+	bool UserName();
+	void EnterName();
 	void Draw(RenderWindow& window);
 
 private:
+	Event event;
+	Font font;
+
 	Player player;
 	RectangleShape hpBar;
 	RectangleShape hpBarBase;
 	int hp;
 
 	Coin coin;
-	Font font;
 	Text score;
 	size_t point;
 
@@ -43,8 +47,18 @@ private:
 
 	Background background;
 
+	RectangleShape bg;
+	Texture bgTexture;
+
 	Text gameOver;
-	RectangleShape over;
+	Texture overTexture;
+	RectangleShape overbox;
+
+	Texture userTexture;
+	RectangleShape userbox;
+	string userName;
+	vector<char> name;
+	Text user;
 
 	float deltaTime = 0.0f;
 	Clock clock;

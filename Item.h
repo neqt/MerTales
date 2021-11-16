@@ -15,9 +15,12 @@ public:
 	RectangleShape shield;
 	RectangleShape bubble;
 	RectangleShape heal;
+	RectangleShape bonus;
+
 	bool shieldState;
 	bool bubbleState;
 	bool healState;
+	bool bonusState;
 
 private:
 	Clock clock;

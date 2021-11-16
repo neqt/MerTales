@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Username.h"
 #include "Game.h"
 #include "Score.h"
 #include "About.h"
@@ -15,20 +16,24 @@ public:
 
 	void MoveUp();
 	void MoveDown();
-	void UserName();
+	void GetName(string name);
 	void Draw(RenderWindow& window);
 	int GetPressedItem() { return selectedItem; }
 	
-	bool userState = false;
-	bool gameState = false;
-	bool scoreState = false;
-	bool aboutState = false;
+	bool menuState;
+	bool userState;
+	bool gameState;
+	bool scoreState;
+	bool aboutState;
 
 private:
+	Username username;
 	Game game;
 	Score score;
 	About about;
 
+	RectangleShape menubox;
+	Texture menuTexture;
 	int selectedItem = 0;
 	Font fontMenu;
 	Font fontMain;
@@ -36,10 +41,6 @@ private:
 	Text main;
 	Text dev;
 	Text menu[maxItem];
-
-	string userName;
-	vector<char> name;
-	Text user;
 
 	RectangleShape bg;
 	Texture bgTexture;

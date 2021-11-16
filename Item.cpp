@@ -23,7 +23,9 @@ Item::Item()
 	heal.setSize(Vector2f(40.f, 45.f));
 	heal.setPosition(randItem(100, 940), randItem(200, 575));
 	heal.setTexture(&healTexture);
-	healState = false;
+	healState = true;
+
+
 }
 
 Item::~Item()
@@ -37,7 +39,8 @@ void Item::Spawn()
 
 void Item::Update()
 {
-	
+	time = clock.getElapsedTime().asMilliseconds();
+
 }
 
 void Item::Draw(RenderWindow& window)

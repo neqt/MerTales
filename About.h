@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <SFML/Window/Joystick.hpp>
 using namespace sf;
 
 class About
@@ -13,7 +12,6 @@ public:
 	void Item();
 	bool Back(RenderWindow& window);
 	void Draw(RenderWindow& window);
-	bool backState;
 	Text back;
 
 private:
@@ -21,6 +19,7 @@ private:
 	Text main;
 	Font fontBack;
 	
+	Event event;
 
 	RectangleShape bg;
 	Texture bgTexture;
