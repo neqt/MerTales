@@ -7,15 +7,15 @@ Menu::Menu(float width, float height)
 	bg.setPosition(0.0f, 0.0f);
 	bg.setTexture(&bgTexture);
 
-	fontMain.loadFromFile("Fonts/RopaBilly.ttf"); //พู่กัน
-	//fontMertales.loadFromFile("Fonts/light_pixel-7.ttf"); //ปากกา
-	//fontMain.loadFromFile("Fonts/Fipps-Regular.otf");
+	//fontMain.loadFromFile("Fonts/RopaBilly.ttf"); //พู่กัน
+	fontMain.loadFromFile("Fonts/light_pixel-7.ttf"); 
+	//fontMain.loadFromFile("Fonts/Fipps-Regular.otf"); //ปากกา
 	main.setFont(fontMain);
 	main.setFillColor(Color::Black);
-	main.setCharacterSize(185);
+	main.setCharacterSize(100);
 	main.setString("MerTales");
 	main.setOrigin(main.getLocalBounds().width / 4, main.getLocalBounds().height / 8);
-	main.setPosition(Vector2f(width / 4, 60));
+	main.setPosition(Vector2f(width / 4, 130));
 
 	fontMenu.loadFromFile("Fonts/hachicro.ttf"); //พิกเซลกลมดอกไม้
 	menu[0].setFont(fontMenu);
@@ -110,12 +110,7 @@ void Menu::Draw(RenderWindow& window)
 	{
 		game.Reset();
 		userState = true;
-		menuState = false;/*
-		if (username.name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Right))
-		{
-			gameState = true;
-			userState = false;
-		}*/
+		menuState = false;
 	}
 	if (menu[1].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{

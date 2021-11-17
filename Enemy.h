@@ -8,7 +8,7 @@ using namespace sf;
 class Enemy
 {
 public:
-	Enemy(Vector2u imageCount, float switchTime, float speed);
+	Enemy(Vector2u imageCount, float switchTime);
 	~Enemy();
 
 	void Spawn();
@@ -20,14 +20,14 @@ public:
 	FloatRect GetBounds() { return shark.getGlobalBounds(); }
 	
 	RectangleShape shark;
+	unsigned int row;
+	float speed;
 
 private:
 	Animation animation;
 	Texture sharkTexture;
 	Clock clock;
 	float time;
-	unsigned int row;
-	float speed;
 	bool faceRight = true;
 	bool moveRight;
 	

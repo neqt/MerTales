@@ -11,7 +11,7 @@ public:
 	Player(Vector2u imageCount, float switchTime, float speed);
 	~Player();
 
-	void Update(float deltaTime);
+	void Update();
 	void Draw(RenderWindow& window);
 	
 	IntRect uvRect;

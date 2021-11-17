@@ -7,29 +7,29 @@ int randItem(int start, int stop) {
 
 Item::Item()
 {
-	shieldTexture.loadFromFile("Textures/shield.png");
+	shieldTexture.loadFromFile("Textures/shield2.png");
 	shield.setSize(Vector2f(40.f, 45.f));
 	shield.setPosition(randItem(100, 940), randItem(200, 575));
 	shield.setTexture(&shieldTexture);
-	shieldState = true;
+	//shieldState = true;
 
 	bubbleTexture.loadFromFile("Textures/bubble.png");
 	bubble.setSize(Vector2f(125.f, 125.f));
 	//bubble.setPosition(randItem(), 500.f);
 	bubble.setTexture(&bubbleTexture);
-	bubbleState = false;
+	//bubbleState = false;
 
 	healTexture.loadFromFile("Textures/heal.png");
 	heal.setSize(Vector2f(40.f, 45.f));
 	heal.setPosition(randItem(100, 940), randItem(200, 575));
 	heal.setTexture(&healTexture);
-	healState = true;
+	//healState = true;
 
 	bonusTexture.loadFromFile("Textures/bonus.png");
 	bonus.setSize(Vector2f(40.f, 40.f));
 	bonus.setPosition(randItem(100, 940), randItem(200, 575));
 	bonus.setTexture(&bonusTexture);
-	bonusState = true;
+	//bonusState = true;
 }
 
 Item::~Item()

@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="About.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Babyshark.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -157,11 +158,11 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Score.cpp" />
-    <ClCompile Include="Username.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="About.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Babyshark.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Enemy.h" />
@@ -170,7 +171,6 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Score.h" />
-    <ClInclude Include="Username.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,13 +8,14 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include "Menu.h"
-#include "Username.h"
 #include "Game.h"
 #include "Score.h"
 #include "About.h"
 using namespace sf;
 using namespace std;
 
+bool Next();
+bool Back();
 void UserName();
 
 Text enter;
@@ -36,7 +37,6 @@ int main()
     srand(time(NULL));
 
     Menu menu(window.getSize().x, window.getSize().y);
-    Username username;
     Game game;
     Score score;
     About about;
@@ -116,13 +116,14 @@ int main()
         {
             //username.Draw(window);
             UserName();
-            if (username.Back())
+            if (Back())
             {
                 menu.userState = false;
                 menu.menuState = true;
             }
-            if (username.Next())
+            if (Next())
             {
+                game.Reset();
                 menu.userState = false;
                 menu.gameState = true;
             }
@@ -159,6 +160,31 @@ int main()
         window.clear();
     }
     return 0;
+}
+
+bool Next()
+{
+    //if (name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Right))
+    if (Keyboard::isKeyPressed(Keyboard::Right))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Back()
+{
+    if (Keyboard::isKeyPressed(Keyboard::Left))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void UserName()

@@ -2,7 +2,7 @@
 
 Game::Game() :
 	player(Vector2u(3, 3), 100.f, 200.f),
-	enemy(Vector2u(3, 2), 1.f, 3.f)
+	enemy(Vector2u(3, 2), 1.f)
 {
 	font.loadFromFile("Fonts/editundo.ttf");
 	point = 0;
@@ -27,46 +27,77 @@ void Game::CoinCollision()
 
 void Game::ItemCollision()
 {
-	//shield
-	if (player.body.getGlobalBounds().intersects(item.shield.getGlobalBounds()) && item.shieldState)
+	shieldTime = shieldClock.getElapsedTime().asSeconds();
+	healTime = healClock.getElapsedTime().asSeconds();
+	bonusTime = bonusClock.getElapsedTime().asSeconds();
+
+	if (shieldTime > 30)
+	{
+		item.shieldState = true;
+	}
+	if (healTime > 60)
+	{
+		item.healState = true;
+	}
+	if (bonusTime > 45)
+	{
+		item.bonusState = true;
+	}
+
+	//shield //every 30 sec
+	if (player.body.getGlobalBounds().intersects(item.shield.getGlobalBounds()) 
+		&& Keyboard::isKeyPressed(Keyboard::Space)
+		&& item.shieldState)
 	{
 		item.shieldState = false;
 		item.bubbleState = true;
+		shieldClock.restart();
 	}
 	item.bubble.setPosition(player.body.getPosition().x, player.body.getPosition().y);
 
-	//heal
-	if (player.body.getGlobalBounds().intersects(item.heal.getGlobalBounds()) && item.healState)
+	//heal //every 1 min
+	if (player.body.getGlobalBounds().intersects(item.heal.getGlobalBounds()) 
+		&& Keyboard::isKeyPressed(Keyboard::Space)
+		&& item.healState)
 	{
 		item.healState = false;
 		hp += 2;
+		healClock.restart();
 	}
 
-	//bonus
-	if (player.body.getGlobalBounds().intersects(item.bonus.getGlobalBounds()) && item.bonusState)
+	//bonus //every 45 sec
+	if (player.body.getGlobalBounds().intersects(item.bonus.getGlobalBounds()) 
+		&& Keyboard::isKeyPressed(Keyboard::Space)
+		&& item.bonusState)
 	{
 		item.bonusState = false;
 		point *= 2;
+		bonusClock.restart();
 	}
 }
 
 void Game::SharkCollision()
 {
-	for (size_t i = 0; i < 2; i++)
+	if (item.bubbleState && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
 	{
-		if (player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+		item.bubbleState = false;
+		enemy.row = 0;
+	}
+	if (!item.bubbleState && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+	{
+		hp--;
+		enemy.row = 0;
+		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f)
 		{
-			hp--;
-			if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f)
-			{
-				player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y + 50.f);
-			}
-			if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x)
-			{
-				player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y + 50.f);
-			}
+			player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y + 150.f);
+		}
+		if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x)
+		{
+			player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y + 150.f);
 		}
 	}
+	enemy.row = 1;
+
 }
 
 void Game::ScoreUpdate()
@@ -99,22 +130,44 @@ void Game::HpUpdate()
 	hpBarBase.setPosition(Vector2f(35.f, 35.f));
 }
 
+void Game::SpeedUpdate()
+{
+	if (point > 100) { enemy.speed = 0.4f; }
+	if (point > 200) { enemy.speed = 0.5f; }
+	if (point > 300) { enemy.speed = 0.4f; }
+	if (point > 200) { enemy.speed = 0.5f; }
+}
+
 void Game::DrawGameOver()
 {
 	overTexture.loadFromFile("Textures/gameover.png");
-	overbox.setSize(Vector2f(540.f, 180.f));
+	overbox.setSize(Vector2f(810.f, 420.f));
 	overbox.setOrigin(overbox.getGlobalBounds().width / 2, overbox.getGlobalBounds().height / 2);
 	overbox.setPosition(540.f, 360.f);
 	overbox.setTexture(&overTexture);
 
 	gameOver.setFont(font);
 	gameOver.setFillColor(Color::Black);
-	gameOver.setCharacterSize(60);
+	gameOver.setCharacterSize(70);
 	gameOver.setString("Game Over");
-	//gameOver.setCharacterSize(36);
-	//gameOver.setString("Press enter to go back");
 	gameOver.setOrigin(gameOver.getGlobalBounds().width / 2, gameOver.getGlobalBounds().height / 2);
-	gameOver.setPosition(540.f, 360.f);
+	gameOver.setPosition(540.f, 250.f);
+	
+	yourScore.setFont(font);
+	yourScore.setFillColor(Color::Black);
+	yourScore.setCharacterSize(50);
+	stringstream ss;
+	ss << "Score " << point;
+	yourScore.setString(ss.str());
+	yourScore.setOrigin(yourScore.getGlobalBounds().width / 2, yourScore.getGlobalBounds().height / 2);
+	yourScore.setPosition(540.f, 350.f);
+
+	press.setFont(font);
+	press.setFillColor(Color::Black);
+	press.setCharacterSize(36);
+	press.setString("Press right to go back to menu");
+	press.setOrigin(press.getGlobalBounds().width / 2, press.getGlobalBounds().height / 2);
+	press.setPosition(540.f, 450.f);
 }
 
 bool Game::GameOver()
@@ -152,15 +205,17 @@ void Game::Draw(RenderWindow& window)
 		SharkCollision();
 		enemy.Update();
 		enemy.Draw(window);
-		player.Update(deltaTime);
+		player.Update();
 		player.Draw(window);
+		SpeedUpdate();
 	}
 	else
 	{
 		background.Draw(window);
 		window.draw(overbox);
 		window.draw(gameOver);
+		window.draw(yourScore);
+		window.draw(press);
 		DrawGameOver();
 	}
-
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Username.h"
 #include "Game.h"
 #include "Score.h"
 #include "About.h"
@@ -27,7 +26,6 @@ public:
 	bool aboutState;
 
 private:
-	Username username;
 	Game game;
 	Score score;
 	About about;

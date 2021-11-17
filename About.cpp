@@ -31,20 +31,6 @@ About::~About()
 
 bool About::Back(RenderWindow& window)
 {
-	/*
-	if (event.type == Event::KeyReleased)
-	{
-		if (event.key.code == Keyboard::Enter)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	*/
-	
 	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{
 		return true;

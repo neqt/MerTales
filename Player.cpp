@@ -12,7 +12,7 @@ Player::Player(Vector2u imageCount, float switchTime, float speed)
 	body.setPosition(450.f, 300.f);
 	uvRect.width = playerTexture.getSize().x / 3;
 	uvRect.height = playerTexture.getSize().y / 4;
-	body.setTextureRect(sf::IntRect(0, 0, uvRect.width, uvRect.height));
+	body.setTextureRect(IntRect(0, 0, uvRect.width, uvRect.height));
 
 	animationFrame = 0;
 }
@@ -21,11 +21,11 @@ Player::~Player()
 {
 }
 
-void Player::Update(float deltaTime)
+void Player::Update()
 {
 	ptime = pclock.getElapsedTime().asMilliseconds();
 	time = clock.getElapsedTime().asMilliseconds();
-	Vector2f movement(0.0f, 0.0f);
+	Vector2f movement(0.f, 0.f);
 
 	if (Keyboard::isKeyPressed(Keyboard::A) && body.getPosition().x > 0 && ptime > 5)
 	{

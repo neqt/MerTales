@@ -7,6 +7,7 @@
 #include "Coin.h"
 #include "Enemy.h"
 #include "Animation.h"
+#include "Babyshark.h"
 #include "Item.h"
 using namespace sf;
 using namespace std;
@@ -22,6 +23,7 @@ public:
 	void SharkCollision();
 	void ScoreUpdate();
 	void HpUpdate();
+	void SpeedUpdate();
 	void DrawGameOver();
 	bool GameOver();
 	void Reset();
@@ -32,24 +34,22 @@ private:
 	Font font;
 
 	Player player;
+	Coin coin;
+	Enemy enemy;
+	Item item;
+	Background background;
+
 	RectangleShape hpBar;
 	RectangleShape hpBarBase;
 	int hp;
-
-	Coin coin;
 	Text score;
 	size_t point;
-
-	Enemy enemy;
-	
-	Item item;
-
-	Background background;
-
 	RectangleShape bg;
 	Texture bgTexture;
 
 	Text gameOver;
+	Text yourScore;
+	Text press;
 	Texture overTexture;
 	RectangleShape overbox;
 
@@ -59,8 +59,13 @@ private:
 	vector<char> name;
 	Text user;
 
-	float deltaTime = 0.0f;
-	Clock clock;
-
+	Clock shieldClock;
+	long shieldTime;
+	Clock bubbleClock;
+	long bubbleTime;
+	Clock healClock;
+	long healTime;
+	Clock bonusClock;
+	long bonusTime;
 };
 
