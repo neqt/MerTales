@@ -7,27 +7,36 @@ Score::Score()
 	bg.setSize(Vector2f(1080.f, 720.f));
 	bg.setPosition(0.0f, 0.0f);
 	bg.setTexture(&bgTexture);
+	
+	boxTexture.loadFromFile("Textures/airy.png");
+	box.setTexture(&boxTexture);
+	box.setSize(Vector2f(810, 470));
+	box.setOrigin(Vector2f(box.getGlobalBounds().width / 2, box.getGlobalBounds().height / 2));
+	box.setPosition(540, 390);
 
-	fontMenu.loadFromFile("Fonts/editundo.ttf");
-	Text ttext("Leaderboard", fontMenu, 80);
-	main = ttext;
+	fontMain.loadFromFile("Fonts/hachicro.ttf");
+	main.setFont(fontMain);
 	main.setFillColor(Color::Black);
+	main.setCharacterSize(60);
+	main.setString("Leaderboard");
 	main.setOrigin(Vector2f(main.getGlobalBounds().width / 2, 0));
-	main.setPosition(Vector2f(540, 50));
+	main.setPosition(540, 45);
+	
+	font.loadFromFile("Fonts/editundo.ttf");
+	back.setFont(font);
+	back.setFillColor(Color::Black);
+	back.setCharacterSize(36);
+	back.setString("Press left to go back to menu");
+	back.setPosition(490, 650);
+	
 	for (int i = 0; i < 5; i++)
 	{
 		scores[i].setCharacterSize(40);
-		scores[i].setFillColor(sf::Color::White);
+		scores[i].setFillColor(sf::Color::Black);
 		scores[i].setPosition(540, 200 + (i * 80));
-		scores[i].setFont(fontMenu);
+		scores[i].setFont(font);
 	}
-
-	fontBack.loadFromFile("Fonts/hachicro.ttf"); //พิกเซลกลมดอกไม้
-	back.setFont(fontBack);
-	back.setFillColor(Color::Black);
-	back.setCharacterSize(60);
-	back.setString("<   >");
-	back.setPosition(900, 625);
+	
 }
 
 Score::~Score()
@@ -83,6 +92,7 @@ bool Score::Back()
 void Score::Draw(RenderWindow& window)
 {
 	window.draw(bg);
+	window.draw(box);
 	stringstream ss[5];
 	ReadFile();
 	fclose(this->fp);

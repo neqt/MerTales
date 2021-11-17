@@ -31,27 +31,23 @@ void Player::Update()
 	{
 		pclock.restart();
 		body.move(-1.5f, 0.f);
-		//movement.x -= speed * deltaTime;
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 1, uvRect.width, uvRect.height));
 	}
 	if (Keyboard::isKeyPressed(Keyboard::D) && body.getPosition().x < 950 && ptime > 5)
 	{
 		pclock.restart();
 		body.move(1.5f, 0.f);
-		//movement.x += speed * deltaTime;
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 2, uvRect.width, uvRect.height));
 	}
 	if (sf::Keyboard::isKeyPressed(Keyboard::W) && body.getPosition().y > 200 && ptime > 5)
 	{
 		pclock.restart();
 		body.move(0.f, -1.5f);
-		//movement.y -= speed * deltaTime;
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 3, uvRect.width, uvRect.height));
 	}
 	if (sf::Keyboard::isKeyPressed(Keyboard::S) && body.getPosition().y < 600 && ptime > 5)
 	{
 		pclock.restart();
-		//movement.y += speed * deltaTime;
 		body.move(0.f, 1.5f);
 		body.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * 0, uvRect.width, uvRect.height));
 	}

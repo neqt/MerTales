@@ -13,7 +13,7 @@ About::About()
 	box.setOrigin(Vector2f(box.getGlobalBounds().width / 2, box.getGlobalBounds().height / 2));
 	box.setPosition(540, 390);
 
-	fontMain.loadFromFile("Fonts/hachicro.ttf"); //พิกเซลกลมดอกไม้
+	fontMain.loadFromFile("Fonts/hachicro.ttf");
 	main.setFont(fontMain);
 	main.setFillColor(Color::Black);
 	main.setCharacterSize(60);

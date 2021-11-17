@@ -26,8 +26,7 @@ public:
 
 private:
 	Font fontMain;
-	Font fontMenu;
-	Font fontBack;
+	Font font;
 	Text main, scores[5], top[5];
 	FILE* fp;
 	char temp[255];
@@ -39,6 +38,8 @@ private:
 	string getName;
 	size_t getScore;
 
+	RectangleShape box;
+	Texture boxTexture;
 	RectangleShape bg;
 	Texture bgTexture;
 };

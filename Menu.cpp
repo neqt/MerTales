@@ -7,9 +7,7 @@ Menu::Menu(float width, float height)
 	bg.setPosition(0.0f, 0.0f);
 	bg.setTexture(&bgTexture);
 
-	//fontMain.loadFromFile("Fonts/RopaBilly.ttf"); //พู่กัน
-	fontMain.loadFromFile("Fonts/light_pixel-7.ttf"); 
-	//fontMain.loadFromFile("Fonts/Fipps-Regular.otf"); //ปากกา
+	fontMain.loadFromFile("Fonts/light_pixel-7.ttf");
 	main.setFont(fontMain);
 	main.setFillColor(Color::Black);
 	main.setCharacterSize(100);
@@ -17,7 +15,7 @@ Menu::Menu(float width, float height)
 	main.setOrigin(main.getLocalBounds().width / 4, main.getLocalBounds().height / 8);
 	main.setPosition(Vector2f(width / 4, 130));
 
-	fontMenu.loadFromFile("Fonts/hachicro.ttf"); //พิกเซลกลมดอกไม้
+	fontMenu.loadFromFile("Fonts/hachicro.ttf");
 	menu[0].setFont(fontMenu);
 	menu[0].setFillColor(Color::Black);
 	menu[0].setCharacterSize(48);
@@ -99,7 +97,6 @@ void Menu::GetName(string name)
 void Menu::Draw(RenderWindow& window)
 {
 	window.draw(bg);
-	//window.draw(menubox);
 
 	for (size_t i = 0; i < maxItem; i++)
 	{
