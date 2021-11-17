@@ -36,6 +36,7 @@ private:
 	Player player;
 	Coin coin;
 	Enemy enemy;
+	Babyshark babyshark;
 	Item item;
 	Background background;
 

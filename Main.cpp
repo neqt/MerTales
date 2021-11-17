@@ -141,7 +141,7 @@ int main()
         if (menu.scoreState)
         {
             score.Draw(window);
-            if (score.Back(window))
+            if (score.Back())
             {
                 menu.scoreState = false;
                 menu.menuState = true;
@@ -150,7 +150,7 @@ int main()
         if (menu.aboutState)
         {
             about.Draw(window);
-            if (about.Back(window))
+            if (about.Back())
             {
                 menu.aboutState = false;
                 menu.menuState = true;

@@ -7,7 +7,7 @@ int randItem(int start, int stop) {
 
 Item::Item()
 {
-	shieldTexture.loadFromFile("Textures/shield2.png");
+	shieldTexture.loadFromFile("Textures/shield.png");
 	shield.setSize(Vector2f(40.f, 45.f));
 	shield.setPosition(randItem(100, 940), randItem(200, 575));
 	shield.setTexture(&shieldTexture);

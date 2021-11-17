@@ -68,7 +68,7 @@ void Score::WriteFile()
 	fclose(this->fp);
 }
 
-bool Score::Back(RenderWindow& window)
+bool Score::Back()
 {
 	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{

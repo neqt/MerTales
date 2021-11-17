@@ -17,7 +17,7 @@ public:
 
 	void ReadFile();
 	void WriteFile();
-	bool Back(RenderWindow& window);
+	bool Back();
 	void Draw(RenderWindow& window);
 
 	string playerName;

@@ -202,6 +202,7 @@ void Game::Draw(RenderWindow& window)
 		window.draw(hpBarBase);
 		window.draw(hpBar);
 		item.Draw(window);
+		babyshark.Draw(window);
 		SharkCollision();
 		enemy.Update();
 		enemy.Draw(window);
