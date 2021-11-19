@@ -1,5 +1,5 @@
 supitcha 6401
+nep 4570
 pulsiri 1308
-c 210
 kmitl 64
 ce 60

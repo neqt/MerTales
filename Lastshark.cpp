@@ -15,7 +15,7 @@ Lastshark::Lastshark(Vector2u imageCount, float switchTime) :
 	lastTexture.loadFromFile("Textures/shark10.png");
 	last.setTexture(&lastTexture);
 	last.setSize(Vector2f(125.f, 95.f));
-	last.setPosition(randLast(-20, -1100), randLast(200, 600));
+	last.setPosition(1200, randLast(200, 600));
 }
 
 Lastshark::~Lastshark()

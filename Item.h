@@ -8,8 +8,6 @@ public:
 	Item();
 	~Item();
 
-	void Spawn();
-	void Update();
 	void Draw(RenderWindow& window);
 
 	RectangleShape shield;

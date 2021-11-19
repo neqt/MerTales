@@ -1,5 +1,10 @@
 #include "Game.h"
 
+int random(int start, int stop) {
+	int n = (rand() % (stop - start + 1)) + start;
+	return int(n);
+}
+
 Game::Game() :
 	player(Vector2u(3, 3), 100.f, 200.f),
 	enemy(Vector2u(3, 2), 0.5f),
@@ -43,17 +48,20 @@ void Game::ItemCollision()
 	healTime = healClock.getElapsedTime().asSeconds();
 	bonusTime = bonusClock.getElapsedTime().asSeconds();
 
-	if (shieldTime > 45)
+	if (shieldTime > 30)
 	{
 		item.shieldState = true;
+		item.shield.setPosition(random(100, 940), random(200, 575));
 	}
 	if (healTime > 60)
 	{
 		item.healState = true;
+		item.heal.setPosition(random(100, 940), random(200, 575));
 	}
-	if (bonusTime > 30)
+	if (bonusTime > 45)
 	{
 		item.bonusState = true;
+		item.bonus.setPosition(random(100, 940), random(200, 575));
 	}
 	
 	//shield //every 30 sec
@@ -579,7 +587,7 @@ void Game::Reset()
 	player.body.setPosition(450.f, 300.f);
 	enemy.shark.setPosition(-250, float(rand() % (460 - 260 + 1) + 260));
 	babyshark.baby.setPosition(1100, 400);
-	specialshark.boss.setPosition(0, 600);
+	specialshark.boss.setPosition(-50, 600);
 	lastshark.last.setPosition(1200, 500);
 	enemy.speed = 0.2;
 	babyshark.speed = 0.2;

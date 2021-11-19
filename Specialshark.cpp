@@ -15,7 +15,7 @@ Specialshark::Specialshark(Vector2u imageCount, float switchTime) :
 	bossTexture.loadFromFile("Textures/shark11.png");
 	boss.setTexture(&bossTexture);
 	boss.setSize(Vector2f(140.f, 100.f));
-	boss.setPosition(randBoss(0, 980), randBoss(200, 600));
+	boss.setPosition(-50, randBoss(200, 600));
 }
 
 Specialshark::~Specialshark()
