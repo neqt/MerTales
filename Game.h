@@ -10,6 +10,7 @@
 #include "Specialshark.h"
 #include "Item.h"
 #include "Song.h"
+#include "Score.h"
 using namespace sf;
 using namespace std;
 
@@ -26,15 +27,19 @@ public:
 	void BossCollision();
 	void ScoreUpdate();
 	void HpUpdate();
-	void SpeedUpdate();
+	void HarderUpdate();
 	void DrawGameOver();
 	bool GameOver();
 	void Reset();
 	void Draw(RenderWindow& window);
 
+	long point;
+
 private:
 	Event event;
 	Font font;
+	Clock sharkClock[3];
+	long double sharkTime[3];
 
 	Player player;
 	Coin coin[10];
@@ -49,9 +54,13 @@ private:
 	RectangleShape hpBarBase;
 	int hp;
 	Text score;
-	size_t point;
 	RectangleShape bg;
 	Texture bgTexture;
+
+	int coinMax;
+	int sharkMax;
+	int babyMax;
+	int bossMax;
 
 	RectangleShape quit;
 	Texture quitTexture;

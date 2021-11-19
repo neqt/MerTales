@@ -89,11 +89,6 @@ void Menu::MoveDown()
 	}
 }
 
-void Menu::GetName(string name)
-{
-	score.playerName = name;
-}
-
 void Menu::Draw(RenderWindow& window)
 {
 	window.draw(bg);
@@ -106,7 +101,7 @@ void Menu::Draw(RenderWindow& window)
 	if (menu[0].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter)) 
 	{
 		song.Click();
-		game.Reset();
+		//game.Reset();
 		userState = true;
 		menuState = false;
 	}

@@ -81,7 +81,6 @@ int main()
                 break;
             }
 
-            
             if (menu.userState)
             {
                 if (event.type == sf::Event::TextEntered) {
@@ -108,8 +107,7 @@ int main()
                 if (Keyboard::isKeyPressed(Keyboard::Enter) && name.size() != 0) 
                 {
                     song.Click();
-                    song.menuSong = false;
-                    menu.GetName(userName);
+                    score.playerName = userName;
                     menu.userState = false;
                     menu.gameState = true;
                 }
@@ -117,13 +115,11 @@ int main()
         }
         if (menu.menuState)
         {
-            song.menuSong = true;
             song.Menu();
             menu.Draw(window);
         }
         if (menu.userState)
         {
-            song.menuSong = true;
             song.Menu();
             UserName();
             if (Back())
@@ -132,26 +128,16 @@ int main()
                 menu.userState = false;
                 menu.menuState = true;
             }
-            /*
-            if (Next())
-            {
-                game.Reset();
-                menu.userState = false;
-                menu.gameState = true;
-            }
-            */
         }
         if (menu.gameState)
         {
-            //song.Menu();
-
-            //song.Gamestart();
+            song.Menu();
             song.menuSong = false;
             song.gameSong = true;
             game.Draw(window);
-            //song.Game();
             if (game.GameOver() && Keyboard::isKeyPressed(Keyboard::Right))
             {
+                score.playerScore = game.point;
                 song.Click();
                 score.WriteFile();
                 game.Reset();
@@ -163,7 +149,6 @@ int main()
         }
         if (menu.scoreState)
         {
-            song.menuSong = true;
             song.Menu();
             score.Draw(window);
             if (score.Back())

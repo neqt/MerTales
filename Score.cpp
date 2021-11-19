@@ -31,9 +31,14 @@ Score::Score()
 	
 	for (int i = 0; i < 5; i++)
 	{
+		names[i].setCharacterSize(40);
+		names[i].setFillColor(sf::Color::Black);
+		names[i].setPosition(450, 200 + (i * 80));
+		names[i].setFont(font);
+
 		scores[i].setCharacterSize(40);
 		scores[i].setFillColor(sf::Color::Black);
-		scores[i].setPosition(540, 210 + (i * 80));
+		scores[i].setPosition(650, 200 + (i * 80));
 		scores[i].setFont(font);
 	}
 	
@@ -65,7 +70,6 @@ void Score::WriteFile()
 	fp = fopen("./score.txt", "w");
 	for (int i = 5; i > 0; i--)
 	{
-
 		strcpy(temp, userScore[i].second.c_str());
 		fprintf(fp, "%s %d\n", temp, userScore[i].first);
 	}
@@ -98,10 +102,12 @@ void Score::Draw(RenderWindow& window)
 	fclose(this->fp);
 	for (int i = 0; i < 5; i++) 
 	{
-		ss[i] << userScore[i].second << "       " << userScore[i].first;
-		scores[i].setString(ss[i].str());
+		names[i].setString(userScore[i].second);
+		names[i].setOrigin(sf::Vector2f(names[i].getGlobalBounds().width / 2, 0));
+		scores[i].setString(to_string(userScore[i].first));
 		scores[i].setOrigin(sf::Vector2f(scores[i].getGlobalBounds().width / 2, 0));
 		window.draw(scores[i]);
+		window.draw(names[i]);
 	}
 	while (!userScore.empty())
 	{

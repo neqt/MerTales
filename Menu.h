@@ -16,7 +16,6 @@ public:
 
 	void MoveUp();
 	void MoveDown();
-	void GetName(string name);
 	void Draw(RenderWindow& window);
 	int GetPressedItem() { return selectedItem; }
 	

@@ -52,6 +52,11 @@ void Babyshark::Update()
 	baby.setTextureRect(babyanimation.uvRect);
 }
 
+void Babyshark::Reset()
+{
+	baby.setPosition(1100, randBaby(200, 600));
+}
+
 void Babyshark::Draw(RenderWindow& window)
 {
 	//if (babyState)

@@ -12,6 +12,7 @@ public:
 	~Babyshark();
 
 	void Update();
+	void Reset();
 	void Draw(RenderWindow& window);
 
 	IntRect uvRect;

@@ -15,6 +15,8 @@ Game::Game() :
 
 	point = 0;
 	hp = 10;
+	coinMax = 1;
+
 }
 
 Game::~Game()
@@ -23,7 +25,7 @@ Game::~Game()
 
 void Game::CoinCollision()
 {
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < coinMax; i++)
 	{
 		if (coin[i].shape.getGlobalBounds().intersects(player.body.getGlobalBounds()))
 		{
@@ -52,7 +54,7 @@ void Game::ItemCollision()
 	{
 		item.bonusState = true;
 	}
-
+	
 	//shield //every 30 sec
 	if (player.body.getGlobalBounds().intersects(item.shield.getGlobalBounds()) 
 		&& Keyboard::isKeyPressed(Keyboard::Space)
@@ -90,10 +92,11 @@ void Game::ItemCollision()
 
 void Game::SharkCollision()
 {
-	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()) && sharkTime[0] > 1000)
 	{
 		song.Bubble();
 		item.bubbleState = false;
+		sharkClock[0].restart();
 		enemy.row = 0;
 		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f && enemy.shark.getPosition().y + 70.f > player.body.getPosition().y + 50.f)
 		{
@@ -120,10 +123,11 @@ void Game::SharkCollision()
 	{
 		enemy.row = 1;
 	}
-	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()) && sharkTime[0] > 500)
 	{
 		song.Bounce();
 		hp--;
+		sharkClock[0].restart();
 		enemy.row = 0;
 		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f && enemy.shark.getPosition().y + 70.f > player.body.getPosition().y + 50.f)
 		{
@@ -172,11 +176,12 @@ void Game::SharkCollision()
 
 void Game::BabyCollision()
 {
-	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(babyshark.baby.getGlobalBounds()))
+	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(babyshark.baby.getGlobalBounds()) && sharkTime[1] > 1000)
 	{
 		song.Bubble();
 		item.bubbleState = false;
 		babyshark.babyCheck = true;
+		sharkClock[1].restart();
 		if (babyshark.baby.getPosition().x + 45.f > player.body.getPosition().x + 110.f && babyshark.baby.getPosition().y + 50.f > player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x - 100.f, player.body.getPosition().y - 100.f);
@@ -198,11 +203,12 @@ void Game::BabyCollision()
 	{
 		enemy.row = 1;
 	}
-	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(babyshark.baby.getGlobalBounds()))
+	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(babyshark.baby.getGlobalBounds()) && sharkTime[1] > 500)
 	{
 		song.Bounce();
 		hp--;
 		babyshark.babyCheck = true;
+		sharkClock[1].restart();
 		if (babyshark.baby.getPosition().x + 75.f > player.body.getPosition().x + 110.f && babyshark.baby.getPosition().y + 35.f > player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x - 100.f, player.body.getPosition().y - 100.f);
@@ -245,11 +251,12 @@ void Game::BabyCollision()
 
 void Game::BossCollision()
 {
-	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(specialshark.boss.getGlobalBounds()))
+	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(specialshark.boss.getGlobalBounds()) && sharkTime[2] > 1000)
 	{
 		song.Bubble();
 		item.bubbleState = false;
 		specialshark.bossCheck = true;
+		sharkClock[2].restart();
 		if (specialshark.boss.getPosition().x + 60.f > player.body.getPosition().x + 110.f && specialshark.boss.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x - 125.f, player.body.getPosition().y - 125.f);
@@ -271,11 +278,12 @@ void Game::BossCollision()
 	{
 		enemy.row = 1;
 	}
-	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(specialshark.boss.getGlobalBounds()))
+	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(specialshark.boss.getGlobalBounds()) && sharkTime[2] > 500)
 	{
 		song.Bounce();
 		hp--;
 		babyshark.babyCheck = true;
+		sharkClock[2].restart();
 		if (specialshark.boss.getPosition().x + 60.f > player.body.getPosition().x + 110.f && specialshark.boss.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x - 125.f, player.body.getPosition().y - 125.f);
@@ -346,12 +354,79 @@ void Game::HpUpdate()
 	hpBarBase.setPosition(Vector2f(35.f, 35.f));
 }
 
-void Game::SpeedUpdate()
+void Game::HarderUpdate()
 {
-	if (point > 100) { enemy.speed = 0.4f; }
-	if (point > 200) { enemy.speed = 0.5f; }
-	if (point > 300) { enemy.speed = 0.4f; }
-	if (point > 200) { enemy.speed = 0.5f; }
+	if (point >= 3700)
+	{
+		coinMax = 10;
+		sharkMax = 0.4f;
+		babyMax = 0.5f;
+		bossMax = 0.5f;
+	}
+	else if (point >= 2900)
+	{
+		coinMax = 9;
+		sharkMax = 0.4f;
+		babyMax = 0.5f;
+		bossMax = 0.5f;
+	}
+	else if (point >= 2200)
+	{
+		coinMax = 8;
+		sharkMax = 0.4f;
+		babyMax = 0.5f;
+		bossMax = 0.5f;
+	}
+	else if (point >= 1600)
+	{
+		coinMax = 7;
+		sharkMax = 0.4f;
+		babyMax = 0.5f;
+		bossMax = 0.5f;
+	}
+	else if (point >= 1100)
+	{
+		coinMax = 6;
+		sharkMax = 0.4f;
+		babyMax = 0.5f;
+		bossMax = 0.4f;
+	}
+	else if (point >= 700)
+	{
+		coinMax = 5;
+		sharkMax = 0.3f;
+		babyMax = 0.4f;
+		bossMax = 0.4f;
+	}
+	else if (point >= 400)
+	{
+		coinMax = 4;
+		sharkMax = 0.3f;
+		babyMax = 0.4f;
+		specialshark.speed = 0.3f;
+	}
+	else if (point >= 200)
+	{
+		coinMax = 3;
+		sharkMax = 0.2f;
+		babyMax = 0.3f;
+		bossMax = 0.3f;
+	}
+	else if (point >= 100)
+	{
+		coinMax = 2;
+		sharkMax = 0.2f;
+		babyMax = 0.3f;
+		bossMax = 0.2f;
+	}
+	else if (point >= 0)
+	{
+		coinMax = 1;
+		sharkMax = 0.2f;
+		babyMax = 0.2f;
+		bossMax = 0.2f;
+	}
+	
 }
 
 void Game::DrawGameOver()
@@ -403,96 +478,32 @@ void Game::Reset()
 	hp = 10;
 	point = 0;
 	player.body.setPosition(450.f, 300.f);
-
+	enemy.shark.setPosition(-250, float(rand() % (460 - 260 + 1) + 260));
+	babyshark.Reset();
+	specialshark.boss.setPosition(0, 600);
+	shieldClock.restart();
+	healClock.restart();
+	bonusClock.restart();
 }
 
 void Game::Draw(RenderWindow& window)
 {
 	if (hp > 0)
 	{
+		sharkTime[0] = sharkClock[0].getElapsedTime().asMilliseconds();
+		sharkTime[1] = sharkClock[1].getElapsedTime().asMilliseconds();
+		sharkTime[2] = sharkClock[2].getElapsedTime().asMilliseconds();
+
 		background.Draw(window);
 		window.draw(quit);
 		ScoreUpdate();
 		CoinCollision();
-
-		if (point >= 0)
+		HarderUpdate();
+		for (size_t i = 0; i < coinMax; i++)
 		{
-			for (size_t i = 0; i < 1; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.2f;
-			babyshark.speed = 0.2f;
-			specialshark.speed = 0.2f;
+			coin[i].Update();
+			coin[i].Draw(window);
 		}
-		if (point >= 100)
-		{
-			for (size_t i = 0; i < 2; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.2f;
-			babyshark.speed = 0.3f;
-			specialshark.speed = 0.2f;
-		}
-		if (point >= 200)
-		{
-			for (size_t i = 0; i < 3; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.2f;
-			babyshark.speed = 0.3f;
-			specialshark.speed = 0.3f;
-		}
-		if (point >= 400)
-		{
-			for (size_t i = 0; i < 4; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.3f;
-			babyshark.speed = 0.4f;
-			specialshark.speed = 0.3f;
-		}
-		if (point >= 700)
-		{
-			for (size_t i = 0; i < 5; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.3f;
-			babyshark.speed = 0.4f;
-			specialshark.speed = 0.4f;
-		}
-		if (point >= 1100)
-		{
-			for (size_t i = 0; i < 5; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.4f;
-			babyshark.speed = 0.5f;
-			specialshark.speed = 0.4f;
-		}
-		if (point >= 1700)
-		{
-			for (size_t i = 0; i < 5; i++)
-			{
-				coin[i].Update();
-				coin[i].Draw(window);
-			}
-			enemy.speed = 0.4f;
-			babyshark.speed = 0.5f;
-			specialshark.speed = 0.5f;
-		}
-
 		window.draw(score);
 		ItemCollision();
 		HpUpdate();
@@ -510,7 +521,6 @@ void Game::Draw(RenderWindow& window)
 		SharkCollision();
 		player.Update();
 		player.Draw(window);
-		//SpeedUpdate();
 		
 		if (Keyboard::isKeyPressed(Keyboard::Q))
 		{
@@ -526,6 +536,5 @@ void Game::Draw(RenderWindow& window)
 		window.draw(yourScore);
 		window.draw(press);
 		DrawGameOver();
-
 	}
 }

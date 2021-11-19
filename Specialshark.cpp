@@ -28,14 +28,6 @@ Specialshark::~Specialshark()
 void Specialshark::Update()
 {
 	time = clock.getElapsedTime().asMilliseconds();
-	/*
-	if (dir = 1) { baby.move(-speed, 0); }
-	else if (dir = 2) { baby.move(speed, 0); }
-	else if (dir = 5) { baby.move(-speed, -speed); }
-	else if (dir = 6) { baby.move(-speed, speed); }
-	else if (dir = 7) { baby.move(speed, -speed); }
-	else if (dir = 8) { baby.move(speed, speed); }
-	*/
 
 	if (faceRight)
 	{
@@ -58,27 +50,6 @@ void Specialshark::Update()
 
 	spcanimation.Update(row, time, faceRight);
 	boss.setTextureRect(spcanimation.uvRect);
-
-	/*
-	if (time > 200)
-	{
-		animationFrame++;
-		clock.restart();
-	}
-	if (animationFrame >= 3)
-	{
-		animationFrame = 0;
-	}
-	if (bossCheck)
-	{
-		row = 0;
-	}
-	else
-	{
-		row = 1;
-	}
-	boss.setTextureRect(IntRect(uvRect.width * animationFrame, uvRect.height * row, uvRect.width, uvRect.height));
-	*/
 }
 
 void Specialshark::Draw(RenderWindow& window)

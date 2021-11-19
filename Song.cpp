@@ -60,27 +60,10 @@ Song::~Song()
 
 void Song::Menu()
 {
-	if (menuSong == true && menuSound.getStatus() != Music::Status::Playing) 
+	if (menuSound.getStatus() != Music::Status::Playing) 
 	{
 		menuSound.play();
 	}
-	if (menuSong == false)
-	{
-		menuSound.setVolume(0);
-		menuSound.stop();
-	}
-	
-	/*
-	if (menuSong == true)
-	{
-		menuSound.play();
-		menuSound.setLoop(true);
-	}
-	if (menuSong == false)
-	{
-		menuSound.stop();
-	}
-	*/
 }
 
 void Song::Choose()

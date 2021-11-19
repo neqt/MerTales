@@ -27,7 +27,7 @@ public:
 private:
 	Font fontMain;
 	Font font;
-	Text main, scores[5], top[5];
+	Text main, names[5], scores[5];
 	FILE* fp;
 	char temp[255];
 	int i;
