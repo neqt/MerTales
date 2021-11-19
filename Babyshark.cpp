@@ -5,19 +5,20 @@ int randBaby(int start, int stop) {
 	return int(n);
 }
 
-Babyshark::Babyshark()
+Babyshark::Babyshark(Vector2u imageCount, float switchTime) :
+	babyanimation(imageCount, switchTime)
 {
-	babyTexture.loadFromFile("Textures/shark9.png");
+	speed = 0.2f;
+	row = 1;
+	faceRight = true;
+	babyState = false;
+	babyCheck = false;
+
+	babyTexture.loadFromFile("Textures/shark8.png");
 	baby.setTexture(&babyTexture);
-	baby.setSize(Vector2f(90.f, 110.f));
-	baby.setPosition(randBaby(0, 980), randBaby(200, 600));
+	baby.setSize(Vector2f(90.f, 70.f));
+	baby.setPosition(1100, randBaby(200, 600));
 
-	uvRect.width = babyTexture.getSize().x / 9;
-	uvRect.height = babyTexture.getSize().y / 6;
-	baby.setTextureRect(IntRect(0, 0, uvRect.width, uvRect.height));
-
-	dir = randBaby(1, 6);
-	speed = 0.3f;
 }
 
 Babyshark::~Babyshark()
@@ -27,19 +28,34 @@ Babyshark::~Babyshark()
 void Babyshark::Update()
 {
 	time = clock.getElapsedTime().asMilliseconds();
-	/*
-	if (dir = 1) { baby.move(-speed, 0); }
-	else if (dir = 2) { baby.move(speed, 0); }
-	else if (dir = 3) { baby.move(0, -speed); }
-	else if (dir = 4) { baby.move(0, speed); }
-	else if (dir = 5) { baby.move(-speed, -speed); }
-	else if (dir = 6) { baby.move(-speed, speed); }
-	else if (dir = 7) { baby.move(speed, -speed); }
-	else if (dir = 8) { baby.move(speed, speed); }
-	*/
+
+	if (faceRight)
+	{
+		baby.move(speed, 0.f);
+		if (baby.getPosition().x > 1100)
+		{
+			baby.setPosition(baby.getPosition().x, randBaby(240, 480));
+			faceRight = false;
+		}
+	}
+	else
+	{
+		baby.move(-speed, 0.f);
+		if (baby.getPosition().x < -250)
+		{
+			baby.setPosition(baby.getPosition().x, randBaby(200, 500));
+			faceRight = true;
+		}
+	}
+
+	babyanimation.Update(row, time, faceRight);
+	baby.setTextureRect(babyanimation.uvRect);
 }
 
 void Babyshark::Draw(RenderWindow& window)
 {
-	window.draw(baby);
+	//if (babyState)
+	//{
+		window.draw(baby);
+	//}
 }

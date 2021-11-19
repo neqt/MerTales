@@ -104,7 +104,7 @@ About::About()
 	bonusText.setFont(font);
 	bonusText.setFillColor(Color::Black);
 	bonusText.setCharacterSize(40);
-	bonusText.setString("score x2");
+	bonusText.setString("score +200");
 	bonusText.setPosition(720, 525);
 }
 

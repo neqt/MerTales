@@ -1,11 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <vector>
+#include "Babyanimation.h"
 using namespace sf;
 
 class Babyshark
 {
 public:
-	Babyshark();
+	Babyshark(Vector2u imageCount, float switchTime);
 	~Babyshark();
 
 	void Update();
@@ -13,16 +16,19 @@ public:
 
 	IntRect uvRect;
 	RectangleShape baby;
+	unsigned int row;
+	float speed;
+	bool babyState;
+	bool babyCheck;
 
 private:
+	Babyanimation babyanimation;
 	Texture babyTexture;
 	Clock clock;
-	long double time;
-
-	unsigned int row;
-	bool faceRight = true;
+	float time;
+	int animationFrame;
+	bool faceRight;
 	bool moveRight;
-	int dir;
-	float speed;
+
 };
 

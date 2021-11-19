@@ -1,29 +1,35 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <vector>
+#include "Spcanimation.h"
 using namespace sf;
 
 class Specialshark
 {
 public:
-	Specialshark();
+	Specialshark(Vector2u imageCount, float switchTime);
 	~Specialshark();
 
 	void Update();
 	void Draw(RenderWindow& window);
 
 	IntRect uvRect;
-	RectangleShape baby;
+	RectangleShape boss;
+	unsigned int row;
+	float speed;
+	bool bossState;
+	bool bossCheck;
 
 private:
-	Texture babyTexture;
+	Spcanimation spcanimation;
+	Texture bossTexture;
 	Clock clock;
 	long double time;
-
-	unsigned int row;
-	bool faceRight = true;
+	int animationFrame;
+	bool faceRight;
 	bool moveRight;
 	int dir;
-	float speed;
 
 };
 

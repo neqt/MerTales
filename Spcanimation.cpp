@@ -1,23 +1,23 @@
-#include "Babyanimation.h"
+#include "Spcanimation.h"
 
-Babyanimation::Babyanimation(Vector2u imageCount, float switchTime)
+Spcanimation::Spcanimation(Vector2u imageCount, float switchTime)
 {
 	this->imageCount = imageCount;
 	this->switchTime = switchTime;
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	sharkTexture.loadFromFile("Textures/shark5.png");
+	sharkTexture.loadFromFile("Textures/shark11.png");
 
 	uvRect.width = sharkTexture.getSize().x / 3;
 	uvRect.height = sharkTexture.getSize().y / 2;
 }
 
-Babyanimation::~Babyanimation()
+Spcanimation::~Spcanimation()
 {
 }
 
-void Babyanimation::Update(int row, float time, bool faceRight)
+void Spcanimation::Update(int row, float time, bool faceRight)
 {
 	currentImage.y = row;
 	totalTime += time;

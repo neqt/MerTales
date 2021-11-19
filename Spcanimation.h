@@ -2,13 +2,13 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-class Babyanimation
+class Spcanimation
 {
 public:
-	Babyanimation(Vector2u imageCount, float switchTime);
-	~Babyanimation();
+	Spcanimation(Vector2u imageCount, float switchTime);
+	~Spcanimation();
 
-	void Update(int row, float time, bool faceRight);
+	void Update(int row, float tiime, bool faceRight);
 
 	IntRect uvRect;
 

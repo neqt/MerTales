@@ -8,11 +8,11 @@ Song::Song()
 
 	chooseBuffer.loadFromFile("Audio/choose.wav");
 	chooseSound.setBuffer(chooseBuffer);
-	chooseSound.setVolume(20);
+	chooseSound.setVolume(15);
 
 	clickBuffer.loadFromFile("Audio/click.wav");
 	clickSound.setBuffer(clickBuffer);
-	clickSound.setVolume(25);
+	clickSound.setVolume(20);
 
 	gamestartBuffer.loadFromFile("Audio/gamestart.wav");
 	gamestartSound.setBuffer(gamestartBuffer);
@@ -28,7 +28,7 @@ Song::Song()
 
 	coinBuffer.loadFromFile("Audio/coin.wav");
 	coinSound.setBuffer(coinBuffer);
-	coinSound.setVolume(25);
+	coinSound.setVolume(20);
 
 	shieldBuffer.loadFromFile("Audio/shield.wav");
 	shieldSound.setBuffer(shieldBuffer);
@@ -48,7 +48,7 @@ Song::Song()
 
 	gameoverBuffer.loadFromFile("Audio/gameover.wav");
 	gameoverSound.setBuffer(gameoverBuffer);
-	gameoverSound.setVolume(30);
+	gameoverSound.setVolume(60);
 
 	menuSong = false;
 	gameSong = false;

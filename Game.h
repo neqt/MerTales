@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Animation.h"
 #include "Babyshark.h"
+#include "Specialshark.h"
 #include "Item.h"
 #include "Song.h"
 using namespace sf;
@@ -21,6 +22,8 @@ public:
 	void CoinCollision();
 	void ItemCollision();
 	void SharkCollision();
+	void BabyCollision();
+	void BossCollision();
 	void ScoreUpdate();
 	void HpUpdate();
 	void SpeedUpdate();
@@ -37,6 +40,7 @@ private:
 	Coin coin[10];
 	Enemy enemy;
 	Babyshark babyshark;
+	Specialshark specialshark;
 	Item item;
 	Song song;
 	Background background;
@@ -48,6 +52,9 @@ private:
 	size_t point;
 	RectangleShape bg;
 	Texture bgTexture;
+
+	RectangleShape quit;
+	Texture quitTexture;
 
 	Text gameOver;
 	Text yourScore;

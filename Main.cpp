@@ -143,6 +143,8 @@ int main()
         }
         if (menu.gameState)
         {
+            //song.Menu();
+
             //song.Gamestart();
             song.menuSong = false;
             song.gameSong = true;

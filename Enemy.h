@@ -11,29 +11,21 @@ public:
 	Enemy(Vector2u imageCount, float switchTime);
 	~Enemy();
 
-	void Spawn();
 	void Update();
 	void Draw(RenderWindow& window);
 
 	IntRect uvRect;
-	Vector2f GetPosition() { return shark.getPosition(); }
-	FloatRect GetBounds() { return shark.getGlobalBounds(); }
-	
 	RectangleShape shark;
 	unsigned int row;
 	float speed;
+	bool bounce;
 
 private:
 	Animation animation;
 	Texture sharkTexture;
 	Clock clock;
 	float time;
-	bool faceRight = true;
+	bool faceRight;
 	bool moveRight;
 	
-	float spawnTimerMax;
-	float spawnTimer;
-	int maxEnemies;
-	int viewX;
-	int viewY;
 };
