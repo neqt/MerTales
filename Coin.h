@@ -13,13 +13,18 @@ public:
 	~Coin();
 
 	void Spawn();
-	void Update(FloatRect Collision);
+	void Update();
 	void Draw(RenderWindow& window);
-
-	RectangleShape shape[5];
+	
+	IntRect uvRect;
+	RectangleShape shape;
 
 private:
+	Clock clock;
+	long double time;
 	Texture coinTexture;
 	bool eraseCoin;
 	int point;
+	int animationFrame;
+
 };

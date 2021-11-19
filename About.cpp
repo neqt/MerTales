@@ -62,8 +62,9 @@ About::About()
 	sharkText.setString("hp -1");
 	sharkText.setPosition(370, 410);
 
-	coinTexture.loadFromFile("Textures/coin.png");
+	coinTexture.loadFromFile("Textures/coins.png");
 	coin.setTexture(&coinTexture);
+	coin.setTextureRect(IntRect((coinTexture.getSize().x / 8) * 0, 0, coinTexture.getSize().x / 8, coinTexture.getSize().y));
 	coin.setSize(Vector2f(70, 70));
 	coin.setPosition(240, 520);
 

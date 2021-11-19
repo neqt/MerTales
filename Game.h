@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "Player.h"
 #include "Background.h"
 #include "Coin.h"
@@ -9,6 +8,7 @@
 #include "Animation.h"
 #include "Babyshark.h"
 #include "Item.h"
+#include "Song.h"
 using namespace sf;
 using namespace std;
 
@@ -34,10 +34,11 @@ private:
 	Font font;
 
 	Player player;
-	Coin coin;
+	Coin coin[10];
 	Enemy enemy;
 	Babyshark babyshark;
 	Item item;
+	Song song;
 	Background background;
 
 	RectangleShape hpBar;

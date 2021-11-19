@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "Score.h"
 #include "About.h"
+#include "Song.h"
 using namespace sf;
 using namespace std;
 
@@ -40,6 +41,7 @@ int main()
     Game game;
     Score score;
     About about;
+    Song song;
 
     while (window.isOpen())
     {
@@ -54,12 +56,14 @@ int main()
                 case Keyboard::Up:
                     if (menu.menuState)
                     {
+                        song.Choose();
                         menu.MoveUp();
                     }
                     break;
                 case Keyboard::Down:
                     if (menu.menuState)
                     {
+                        song.Choose();
                         menu.MoveDown();
                     }
                     break;
@@ -101,7 +105,10 @@ int main()
                 {
                     name.pop_back();
                 }
-                if (Keyboard::isKeyPressed(Keyboard::Enter) && name.size() != 0) {
+                if (Keyboard::isKeyPressed(Keyboard::Enter) && name.size() != 0) 
+                {
+                    song.Click();
+                    song.menuSong = false;
                     menu.GetName(userName);
                     menu.userState = false;
                     menu.gameState = true;
@@ -110,48 +117,67 @@ int main()
         }
         if (menu.menuState)
         {
+            song.menuSong = true;
+            song.Menu();
             menu.Draw(window);
         }
         if (menu.userState)
         {
-            //username.Draw(window);
+            song.menuSong = true;
+            song.Menu();
             UserName();
             if (Back())
             {
+                song.Click();
                 menu.userState = false;
                 menu.menuState = true;
             }
+            /*
             if (Next())
             {
                 game.Reset();
                 menu.userState = false;
                 menu.gameState = true;
             }
+            */
         }
         if (menu.gameState)
         {
+            //song.Gamestart();
+            song.menuSong = false;
+            song.gameSong = true;
             game.Draw(window);
+            //song.Game();
             if (game.GameOver() && Keyboard::isKeyPressed(Keyboard::Right))
             {
+                song.Click();
+                score.WriteFile();
+                game.Reset();
                 menu.gameState = false;
                 menu.userState = false;
                 menu.menuState = true;
+                song.gameSong = false;
             }
         }
         if (menu.scoreState)
         {
+            song.menuSong = true;
+            song.Menu();
             score.Draw(window);
             if (score.Back())
             {
+                song.Click();
                 menu.scoreState = false;
                 menu.menuState = true;
             }
         }
         if (menu.aboutState)
         {
+            song.Menu();
             about.Draw(window);
             if (about.Back())
             {
+                song.Click();
                 menu.aboutState = false;
                 menu.menuState = true;
             }
@@ -164,7 +190,6 @@ int main()
 
 bool Next()
 {
-    //if (name.size() != 0 && Keyboard::isKeyPressed(Keyboard::Right))
     if (Keyboard::isKeyPressed(Keyboard::Right))
     {
         return true;

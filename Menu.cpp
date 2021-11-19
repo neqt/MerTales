@@ -105,22 +105,26 @@ void Menu::Draw(RenderWindow& window)
 
 	if (menu[0].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter)) 
 	{
+		song.Click();
 		game.Reset();
 		userState = true;
 		menuState = false;
 	}
 	if (menu[1].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{
+		song.Click();
 		scoreState = true;
 		menuState = false;
 	}
 	if (menu[2].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{
+		song.Click();
 		aboutState = true;
 		menuState = false;
 	}
 	if (menu[3].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter))
 	{
+		song.Click();
 		window.close();
 	}
 

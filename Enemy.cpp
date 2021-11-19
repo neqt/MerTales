@@ -20,7 +20,7 @@ Enemy::~Enemy()
 
 void Enemy::Spawn()
 {
-	shark.setPosition(-250, float(rand() % (500 - 200 + 1) + 200));
+	shark.setPosition(-250, float(rand() % (475 - 225 + 1) + 225));
 }
 
 void Enemy::Update()

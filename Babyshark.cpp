@@ -7,7 +7,7 @@ int randBaby(int start, int stop) {
 
 Babyshark::Babyshark()
 {
-	babyTexture.loadFromFile("Textures/jellyfish.png");
+	babyTexture.loadFromFile("Textures/shark9.png");
 	baby.setTexture(&babyTexture);
 	baby.setSize(Vector2f(90.f, 110.f));
 	baby.setPosition(randBaby(0, 980), randBaby(200, 600));
@@ -27,7 +27,7 @@ Babyshark::~Babyshark()
 void Babyshark::Update()
 {
 	time = clock.getElapsedTime().asMilliseconds();
-
+	/*
 	if (dir = 1) { baby.move(-speed, 0); }
 	else if (dir = 2) { baby.move(speed, 0); }
 	else if (dir = 3) { baby.move(0, -speed); }
@@ -36,6 +36,7 @@ void Babyshark::Update()
 	else if (dir = 6) { baby.move(-speed, speed); }
 	else if (dir = 7) { baby.move(speed, -speed); }
 	else if (dir = 8) { baby.move(speed, speed); }
+	*/
 }
 
 void Babyshark::Draw(RenderWindow& window)

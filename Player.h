@@ -15,9 +15,6 @@ public:
 	void Draw(RenderWindow& window);
 	
 	IntRect uvRect;
-	//Vector2f GetPosition() { return body.getPosition(); }
-	//FloatRect GetBounds() { return body.getGlobalBounds(); }
-	
 	RectangleShape body;
 
 private:

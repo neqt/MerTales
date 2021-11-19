@@ -33,7 +33,7 @@ Score::Score()
 	{
 		scores[i].setCharacterSize(40);
 		scores[i].setFillColor(sf::Color::Black);
-		scores[i].setPosition(540, 200 + (i * 80));
+		scores[i].setPosition(540, 210 + (i * 80));
 		scores[i].setFont(font);
 	}
 	

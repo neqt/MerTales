@@ -5,6 +5,7 @@ Game::Game() :
 	enemy(Vector2u(3, 2), 1.f)
 {
 	font.loadFromFile("Fonts/editundo.ttf");
+	
 	point = 0;
 	hp = 10;
 }
@@ -15,12 +16,13 @@ Game::~Game()
 
 void Game::CoinCollision()
 {
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 10; i++)
 	{
-		if (coin.shape[i].getGlobalBounds().intersects(player.body.getGlobalBounds()))
+		if (coin[i].shape.getGlobalBounds().intersects(player.body.getGlobalBounds()))
 		{
+			song.Coin();
 			point += 10;
-			coin.shape[i].setPosition(float(rand() % (1030 - 50 + 1) + 50), float(rand() % (600 - 300 + 1) + 300));
+			coin[i].shape.setPosition(float(rand() % (1030 - 50 + 1) + 50), float(rand() % (600 - 300 + 1) + 300));
 		}
 	}
 }
@@ -49,6 +51,7 @@ void Game::ItemCollision()
 		&& Keyboard::isKeyPressed(Keyboard::Space)
 		&& item.shieldState)
 	{
+		song.Shield();
 		item.shieldState = false;
 		item.bubbleState = true;
 		shieldClock.restart();
@@ -60,6 +63,7 @@ void Game::ItemCollision()
 		&& Keyboard::isKeyPressed(Keyboard::Space)
 		&& item.healState)
 	{
+		song.Heal();
 		item.healState = false;
 		hp += 2;
 		healClock.restart();
@@ -70,6 +74,7 @@ void Game::ItemCollision()
 		&& Keyboard::isKeyPressed(Keyboard::Space)
 		&& item.bonusState)
 	{
+		song.Bonus();
 		item.bonusState = false;
 		point *= 2;
 		bonusClock.restart();
@@ -78,26 +83,74 @@ void Game::ItemCollision()
 
 void Game::SharkCollision()
 {
-	if (item.bubbleState && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
 	{
+		song.Bubble();
 		item.bubbleState = false;
 		enemy.row = 0;
-	}
-	if (!item.bubbleState && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
-	{
-		hp--;
-		enemy.row = 0;
-		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f)
+		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f && enemy.shark.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y - 150.f);
+		}
+		if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x && enemy.shark.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y - 150.f);
+		}
+		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f && enemy.shark.getPosition().y + 60.f < player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y + 150.f);
 		}
-		if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x)
+		if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x && enemy.shark.getPosition().y + 60.f < player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y + 150.f);
 		}
 	}
-	enemy.row = 1;
-
+	else
+	{
+		enemy.row = 1;
+	}
+	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(enemy.shark.getGlobalBounds()))
+	{
+		song.Bounce();
+		hp--;
+		enemy.row = 0;
+		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f && enemy.shark.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y - 150.f);
+		}
+		if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x && enemy.shark.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y - 150.f);
+		}
+		if (enemy.shark.getPosition().x + 140.f > player.body.getPosition().x + 110.f && enemy.shark.getPosition().y + 60.f < player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 150.f, player.body.getPosition().y + 150.f);
+		}
+		if (enemy.shark.getPosition().x + 175.f < player.body.getPosition().x && enemy.shark.getPosition().y + 60.f < player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 150.f, player.body.getPosition().y + 150.f);
+		}
+	}
+	else
+	{
+		enemy.row = 1;
+	}
+	if (player.body.getPosition().x < 0)
+	{
+		player.body.setPosition(0, player.body.getPosition().y);
+	}
+	if (player.body.getPosition().x > 950)
+	{
+		player.body.setPosition(950, player.body.getPosition().y);
+	}
+	if (player.body.getPosition().y < 200)
+	{
+		player.body.setPosition(player.body.getPosition().x, 200);
+	}
+	if (player.body.getPosition().y > 600)
+	{
+		player.body.setPosition(player.body.getPosition().x, 600);
+	}
 }
 
 void Game::ScoreUpdate()
@@ -195,7 +248,53 @@ void Game::Draw(RenderWindow& window)
 		background.Draw(window);
 		ScoreUpdate();
 		CoinCollision();
-		coin.Draw(window);
+
+		if (point >= 0)
+		{
+			for (size_t i = 0; i < 1; i++)
+			{
+				coin[i].Update();
+				coin[i].Draw(window);
+			}
+			enemy.speed = 0.3f;
+		}
+		if (point >= 100)
+		{
+			for (size_t i = 0; i < 2; i++)
+			{
+				coin[i].Update();
+				coin[i].Draw(window);
+			}
+			enemy.speed = 0.4f;
+		}
+		if (point >= 200)
+		{
+			for (size_t i = 0; i < 3; i++)
+			{
+				coin[i].Update();
+				coin[i].Draw(window);
+			}
+			enemy.speed = 0.4f;
+		}
+		if (point >= 400)
+		{
+			for (size_t i = 0; i < 4; i++)
+			{
+				coin[i].Update();
+				coin[i].Draw(window);
+			}
+			enemy.speed = 0.4f;
+		}
+		if (point >= 800)
+		{
+			for (size_t i = 0; i < 5; i++)
+			{
+				coin[i].Update();
+				coin[i].Draw(window);
+			}
+			enemy.speed = 0.4f;
+		}
+
 		window.draw(score);
 		ItemCollision();
 		HpUpdate();
@@ -208,10 +307,16 @@ void Game::Draw(RenderWindow& window)
 		enemy.Draw(window);
 		player.Update();
 		player.Draw(window);
-		SpeedUpdate();
+		//SpeedUpdate();
+
+		if (Keyboard::isKeyPressed(Keyboard::Q))
+		{
+			hp = 0;
+		}
 	}
 	else
 	{
+		song.Gameover();
 		background.Draw(window);
 		window.draw(overbox);
 		window.draw(gameOver);

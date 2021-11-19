@@ -51,6 +51,15 @@
     <ClCompile Include="Babyshark.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Specialshark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Song.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Babyanimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -84,6 +93,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Babyshark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Specialshark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Song.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Babyanimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Score.h"
 #include "About.h"
+#include "Song.h"
 
 using namespace sf;
 #define maxItem 4
@@ -29,6 +30,7 @@ private:
 	Game game;
 	Score score;
 	About about;
+	Song song;
 
 	RectangleShape menubox;
 	Texture menuTexture;
