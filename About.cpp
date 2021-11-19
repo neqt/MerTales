@@ -77,35 +77,35 @@ About::About()
 	shieldTexture.loadFromFile("Textures/shield.png");
 	shield.setTexture(&shieldTexture);
 	shield.setSize(Vector2f(60, 70));
-	shield.setPosition(630, 350);
+	shield.setPosition(610, 350);
 
 	shieldText.setFont(font);
 	shieldText.setFillColor(Color::Black);
 	shieldText.setCharacterSize(40);
 	shieldText.setString("shield");
-	shieldText.setPosition(720, 360);
+	shieldText.setPosition(700, 360);
 
 	healTexture.loadFromFile("Textures/heal.png");
 	heal.setTexture(&healTexture);
 	heal.setSize(Vector2f(60, 70));
-	heal.setPosition(630, 435);
+	heal.setPosition(610, 435);
 
 	healText.setFont(font);
 	healText.setFillColor(Color::Black);
 	healText.setCharacterSize(40);
 	healText.setString("hp +3");
-	healText.setPosition(720, 445);
+	healText.setPosition(700, 445);
 
 	bonusTexture.loadFromFile("Textures/bonus.png");
 	bonus.setTexture(&bonusTexture);
 	bonus.setSize(Vector2f(60, 70));
-	bonus.setPosition(630, 520);
+	bonus.setPosition(610, 520);
 
 	bonusText.setFont(font);
 	bonusText.setFillColor(Color::Black);
 	bonusText.setCharacterSize(40);
 	bonusText.setString("score +200");
-	bonusText.setPosition(720, 525);
+	bonusText.setPosition(700, 525);
 }
 
 About::~About()
