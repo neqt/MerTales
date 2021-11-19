@@ -51,17 +51,14 @@ void Game::ItemCollision()
 	if (shieldTime > 30)
 	{
 		item.shieldState = true;
-		item.shield.setPosition(random(100, 940), random(200, 575));
 	}
 	if (healTime > 60)
 	{
 		item.healState = true;
-		item.heal.setPosition(random(100, 940), random(200, 575));
 	}
 	if (bonusTime > 45)
 	{
 		item.bonusState = true;
-		item.bonus.setPosition(random(100, 940), random(200, 575));
 	}
 	
 	//shield //every 30 sec
@@ -72,6 +69,7 @@ void Game::ItemCollision()
 		song.Shield();
 		item.shieldState = false;
 		item.bubbleState = true;
+		item.shield.setPosition(random(100, 940), random(200, 575));
 		shieldClock.restart();
 	}
 	item.bubble.setPosition(player.body.getPosition().x, player.body.getPosition().y);
@@ -83,7 +81,12 @@ void Game::ItemCollision()
 	{
 		song.Heal();
 		item.healState = false;
-		hp += 2;
+		hp += 3;
+		if (hp > 10)
+		{
+			hp = 10;
+		}
+		item.heal.setPosition(random(100, 940), random(200, 575));
 		healClock.restart();
 	}
 
@@ -95,6 +98,7 @@ void Game::ItemCollision()
 		song.Bonus();
 		item.bonusState = false;
 		point += 200;
+		item.bonus.setPosition(random(100, 940), random(200, 575));
 		bonusClock.restart();
 	}
 }
@@ -593,6 +597,9 @@ void Game::Reset()
 	babyshark.speed = 0.2;
 	specialshark.speed = 0.2;
 	lastshark.speed = 0.2;
+	item.shieldState = false;
+	item.healState = false;
+	item.bonusState = false;
 	shieldClock.restart();
 	healClock.restart();
 	bonusClock.restart();
