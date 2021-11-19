@@ -15,7 +15,6 @@
 using namespace sf;
 using namespace std;
 
-bool Next();
 bool Back();
 void UserName();
 
@@ -173,18 +172,6 @@ int main()
         window.clear();
     }
     return 0;
-}
-
-bool Next()
-{
-    if (Keyboard::isKeyPressed(Keyboard::Right))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
 }
 
 bool Back()

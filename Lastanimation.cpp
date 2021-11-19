@@ -7,7 +7,7 @@ Lastanimation::Lastanimation(Vector2u imageCount, float switchTime)
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	lastTexture.loadFromFile("Textures/shark10.png");
+	lastTexture.loadFromFile("Textures/sharklast.png");
 
 	uvRect.width = lastTexture.getSize().x / 3;
 	uvRect.height = lastTexture.getSize().y / 2;

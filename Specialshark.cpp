@@ -12,7 +12,7 @@ Specialshark::Specialshark(Vector2u imageCount, float switchTime) :
 	row = 1;
 	faceRight = true;
 
-	bossTexture.loadFromFile("Textures/shark11.png");
+	bossTexture.loadFromFile("Textures/sharkboss.png");
 	boss.setTexture(&bossTexture);
 	boss.setSize(Vector2f(140.f, 100.f));
 	boss.setPosition(-50, randBoss(200, 600));

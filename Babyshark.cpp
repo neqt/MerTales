@@ -12,7 +12,7 @@ Babyshark::Babyshark(Vector2u imageCount, float switchTime) :
 	row = 1;
 	faceRight = true;
 
-	babyTexture.loadFromFile("Textures/shark8.png");
+	babyTexture.loadFromFile("Textures/sharkbaby.png");
 	baby.setTexture(&babyTexture);
 	baby.setSize(Vector2f(110.f, 80.f));
 	baby.setPosition(1100, randBaby(200, 600));

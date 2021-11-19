@@ -7,7 +7,7 @@ Babyanimation::Babyanimation(Vector2u imageCount, float switchTime)
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	sharkTexture.loadFromFile("Textures/shark5.png");
+	sharkTexture.loadFromFile("Textures/sharkbaby.png");
 
 	uvRect.width = sharkTexture.getSize().x / 3;
 	uvRect.height = sharkTexture.getSize().y / 2;

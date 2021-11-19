@@ -50,7 +50,7 @@ About::About()
 	spaceText.setString("Collect Item");
 	spaceText.setPosition(610, 260);
 
-	sharkTexture.loadFromFile("Textures/shark5.png");
+	sharkTexture.loadFromFile("Textures/shark.png");
 	shark.setTexture(&sharkTexture);
 	shark.setTextureRect(IntRect((sharkTexture.getSize().x / 3) * 1, 0, sharkTexture.getSize().x / 3, sharkTexture.getSize().y / 2));
 	shark.setSize(Vector2f(150, 90));

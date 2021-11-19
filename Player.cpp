@@ -5,7 +5,7 @@ Player::Player(Vector2u imageCount, float switchTime, float speed)
 	this->speed = speed;
 	row = 0;
 
-	playerTexture.loadFromFile("Textures/merman.png");
+	playerTexture.loadFromFile("Textures/merfolk.png");
 	body.setTexture(&playerTexture);
 	body.setSize(Vector2f(120.f, 100.f));
 	body.setPosition(450.f, 300.f);

@@ -7,7 +7,7 @@ Spcanimation::Spcanimation(Vector2u imageCount, float switchTime)
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	spcTexture.loadFromFile("Textures/shark11.png");
+	spcTexture.loadFromFile("Textures/sharkboss.png");
 
 	uvRect.width = spcTexture.getSize().x / 3;
 	uvRect.height = spcTexture.getSize().y / 2;

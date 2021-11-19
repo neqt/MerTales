@@ -14,8 +14,6 @@ public:
 	void Choose();
 	void Click();
 
-	void Gamestart();
-	void Game();
 	void Bounce();
 	void Coin();
 	void Shield();
@@ -35,10 +33,6 @@ private:
 	SoundBuffer clickBuffer;
 	Sound clickSound;
 
-	SoundBuffer gamestartBuffer;
-	Sound gamestartSound;
-	SoundBuffer gameBuffer;
-	Sound gameSound;
 	SoundBuffer bounceBuffer;
 	Sound bounceSound;
 	SoundBuffer coinBuffer;

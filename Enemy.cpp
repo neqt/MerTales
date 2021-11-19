@@ -8,7 +8,7 @@ Enemy::Enemy(Vector2u imageCount, float switchTime) :
 	faceRight = true;
 	bounce = true;
 
-	sharkTexture.loadFromFile("Textures/shark5.png");
+	sharkTexture.loadFromFile("Textures/shark.png");
 
 	shark.setSize(Vector2f(190.f, 120.f));
 	shark.setTexture(&sharkTexture);

@@ -14,14 +14,6 @@ Song::Song()
 	clickSound.setBuffer(clickBuffer);
 	clickSound.setVolume(20);
 
-	gamestartBuffer.loadFromFile("Audio/gamestart.wav");
-	gamestartSound.setBuffer(gamestartBuffer);
-	gamestartSound.setVolume(30);
-
-	gameBuffer.loadFromFile("Audio/gamesong.wav");
-	gameSound.setBuffer(gameBuffer);
-	gameSound.setVolume(30);
-
 	bounceBuffer.loadFromFile("Audio/bounce.wav");
 	bounceSound.setBuffer(bounceBuffer);
 	bounceSound.setVolume(5);
@@ -49,9 +41,6 @@ Song::Song()
 	gameoverBuffer.loadFromFile("Audio/gameover.wav");
 	gameoverSound.setBuffer(gameoverBuffer);
 	gameoverSound.setVolume(60);
-
-	menuSong = false;
-	gameSong = false;
 }
 
 Song::~Song()
@@ -74,23 +63,6 @@ void Song::Choose()
 void Song::Click()
 {
 	clickSound.play();
-}
-
-void Song::Gamestart()
-{
-	gamestartSound.play();
-}
-
-void Song::Game()
-{
-	if (gameSong == true && gameSound.getStatus() != Music::Status::Playing)
-	{
-		gameSound.play();
-	}
-	if (gameSong == false)
-	{
-		gameSound.stop();
-	}
 }
 
 void Song::Bounce()
