@@ -2,31 +2,30 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include "Babyanimation.h"
+#include "Lastanimation.h"
 using namespace sf;
 
-class Babyshark
+class Lastshark
 {
 public:
-	Babyshark(Vector2u imageCount, float switchTime);
-	~Babyshark();
+	Lastshark(Vector2u imageCount, float switchTime);
+	~Lastshark();
 
 	void Update();
 	void Draw(RenderWindow& window);
 
 	IntRect uvRect;
-	RectangleShape baby;
+	RectangleShape last;
 	unsigned int row;
 	float speed;
 
 private:
-	Babyanimation babyanimation;
-	Texture babyTexture;
+	Lastanimation lastanimation;
+	Texture lastTexture;
 	Clock clock;
-	float time;
+	long double time;
 	int animationFrame;
 	bool faceRight;
 	bool moveRight;
-
 };
 

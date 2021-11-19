@@ -101,7 +101,7 @@ void Menu::Draw(RenderWindow& window)
 	if (menu[0].getFillColor() == Color::Black && Keyboard::isKeyPressed(Keyboard::Enter)) 
 	{
 		song.Click();
-		//game.Reset();
+		game.Reset();
 		userState = true;
 		menuState = false;
 	}

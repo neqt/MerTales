@@ -4,7 +4,8 @@ Game::Game() :
 	player(Vector2u(3, 3), 100.f, 200.f),
 	enemy(Vector2u(3, 2), 0.5f),
 	babyshark(Vector2u(3, 2), 1.f),
-	specialshark(Vector2u(3, 2), 0.75f)
+	specialshark(Vector2u(3, 2), 0.75f),
+	lastshark(Vector2u(3, 2), 0.9f)
 {
 	font.loadFromFile("Fonts/editundo.ttf");
 	
@@ -180,7 +181,6 @@ void Game::BabyCollision()
 	{
 		song.Bubble();
 		item.bubbleState = false;
-		babyshark.babyCheck = true;
 		sharkClock[1].restart();
 		if (babyshark.baby.getPosition().x + 45.f > player.body.getPosition().x + 110.f && babyshark.baby.getPosition().y + 50.f > player.body.getPosition().y + 50.f)
 		{
@@ -207,7 +207,6 @@ void Game::BabyCollision()
 	{
 		song.Bounce();
 		hp--;
-		babyshark.babyCheck = true;
 		sharkClock[1].restart();
 		if (babyshark.baby.getPosition().x + 75.f > player.body.getPosition().x + 110.f && babyshark.baby.getPosition().y + 35.f > player.body.getPosition().y + 50.f)
 		{
@@ -255,7 +254,7 @@ void Game::BossCollision()
 	{
 		song.Bubble();
 		item.bubbleState = false;
-		specialshark.bossCheck = true;
+		enemy.row = 0;
 		sharkClock[2].restart();
 		if (specialshark.boss.getPosition().x + 60.f > player.body.getPosition().x + 110.f && specialshark.boss.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
 		{
@@ -282,7 +281,7 @@ void Game::BossCollision()
 	{
 		song.Bounce();
 		hp--;
-		babyshark.babyCheck = true;
+		enemy.row = 0;
 		sharkClock[2].restart();
 		if (specialshark.boss.getPosition().x + 60.f > player.body.getPosition().x + 110.f && specialshark.boss.getPosition().y + 60.f > player.body.getPosition().y + 50.f)
 		{
@@ -299,6 +298,81 @@ void Game::BossCollision()
 		if (specialshark.boss.getPosition().x + 90.f < player.body.getPosition().x && specialshark.boss.getPosition().y + 60.f < player.body.getPosition().y + 50.f)
 		{
 			player.body.setPosition(player.body.getPosition().x + 125.f, player.body.getPosition().y + 125.f);
+		}
+	}
+	else
+	{
+		enemy.row = 1;
+	}
+
+	if (player.body.getPosition().x < 0)
+	{
+		player.body.setPosition(0, player.body.getPosition().y);
+	}
+	if (player.body.getPosition().x > 950)
+	{
+		player.body.setPosition(950, player.body.getPosition().y);
+	}
+	if (player.body.getPosition().y < 200)
+	{
+		player.body.setPosition(player.body.getPosition().x, 200);
+	}
+	if (player.body.getPosition().y > 600)
+	{
+		player.body.setPosition(player.body.getPosition().x, 600);
+	}
+}
+
+void Game::LastCollision()
+{
+	if (item.bubbleState == true && player.body.getGlobalBounds().intersects(lastshark.last.getGlobalBounds()) && sharkTime[3] > 1000)
+	{
+		song.Bubble();
+		item.bubbleState = false;
+		enemy.row = 0;
+		sharkClock[3].restart();
+		if (lastshark.last.getPosition().x + 50.f > player.body.getPosition().x + 110.f && lastshark.last.getPosition().y + 55.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 110.f, player.body.getPosition().y - 110.f);
+		}
+		if (lastshark.last.getPosition().x + 80.f < player.body.getPosition().x && lastshark.last.getPosition().y + 55.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 110.f, player.body.getPosition().y - 110.f);
+		}
+		if (lastshark.last.getPosition().x + 50.f > player.body.getPosition().x + 110.f && lastshark.last.getPosition().y + 55.f < player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 110.f, player.body.getPosition().y + 110.f);
+		}
+		if (lastshark.last.getPosition().x + 80.f < player.body.getPosition().x && lastshark.last.getPosition().y + 55.f < player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 110.f, player.body.getPosition().y + 110.f);
+		}
+	}
+	else
+	{
+		enemy.row = 1;
+	}
+	if (item.bubbleState == false && player.body.getGlobalBounds().intersects(lastshark.last.getGlobalBounds()) && sharkTime[1] > 500)
+	{
+		song.Bounce();
+		hp--;
+		enemy.row = 0;
+		sharkClock[3].restart();
+		if (lastshark.last.getPosition().x + 50.f > player.body.getPosition().x + 110.f && lastshark.last.getPosition().y + 55.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 110.f, player.body.getPosition().y - 110.f);
+		}
+		if (lastshark.last.getPosition().x + 80.f < player.body.getPosition().x && lastshark.last.getPosition().y + 55.f > player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 110.f, player.body.getPosition().y - 110.f);
+		}
+		if (lastshark.last.getPosition().x + 50.f > player.body.getPosition().x + 110.f && lastshark.last.getPosition().y + 55.f < player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x - 110.f, player.body.getPosition().y + 110.f);
+		}
+		if (lastshark.last.getPosition().x + 80.f < player.body.getPosition().x && lastshark.last.getPosition().y + 55.f < player.body.getPosition().y + 50.f)
+		{
+			player.body.setPosition(player.body.getPosition().x + 110.f, player.body.getPosition().y + 110.f);
 		}
 	}
 	else
@@ -356,77 +430,102 @@ void Game::HpUpdate()
 
 void Game::HarderUpdate()
 {
-	if (point >= 3700)
+	if (point >= 4600)
 	{
 		coinMax = 10;
-		sharkMax = 0.4f;
-		babyMax = 0.5f;
-		bossMax = 0.5f;
+		enemy.speed = 0.4f;
+		babyshark.speed = 0.4f;
+		specialshark.speed = 0.4f;
+		lastshark.speed = 0.4f;
+	}
+	else if (point >= 3700)
+	{
+		coinMax = 10;
+		enemy.speed = 0.4f;
+		babyshark.speed = 0.4f;
+		specialshark.speed = 0.4f;
+		lastshark.speed = 0.3f;
 	}
 	else if (point >= 2900)
 	{
 		coinMax = 9;
-		sharkMax = 0.4f;
-		babyMax = 0.5f;
-		bossMax = 0.5f;
+		enemy.speed = 0.4f;
+		babyshark.speed = 0.4f;
+		specialshark.speed = 0.3f;
+		lastshark.speed = 0.3f;
 	}
 	else if (point >= 2200)
 	{
 		coinMax = 8;
-		sharkMax = 0.4f;
-		babyMax = 0.5f;
-		bossMax = 0.5f;
+		enemy.speed = 0.3f;
+		babyshark.speed = 0.4f;
+		specialshark.speed = 0.3f;
+		lastshark.speed = 0.3f;
 	}
 	else if (point >= 1600)
 	{
 		coinMax = 7;
-		sharkMax = 0.4f;
-		babyMax = 0.5f;
-		bossMax = 0.5f;
+		enemy.speed = 0.3f;
+		babyshark.speed = 0.4f;
+		specialshark.speed = 0.3f;
+		lastshark.speed = 0.2f;
 	}
 	else if (point >= 1100)
 	{
 		coinMax = 6;
-		sharkMax = 0.4f;
-		babyMax = 0.5f;
-		bossMax = 0.4f;
+		enemy.speed = 0.3f;
+		babyshark.speed = 0.4f;
+		specialshark.speed = 0.3f;
+		lastshark.speed = 0.2f;
 	}
 	else if (point >= 700)
 	{
 		coinMax = 5;
-		sharkMax = 0.3f;
-		babyMax = 0.4f;
-		bossMax = 0.4f;
+		enemy.speed = 0.3f;
+		babyshark.speed = 0.3f;
+		specialshark.speed = 0.3f;
+		lastshark.speed = 0.2f;
 	}
 	else if (point >= 400)
 	{
 		coinMax = 4;
-		sharkMax = 0.3f;
-		babyMax = 0.4f;
-		specialshark.speed = 0.3f;
+		enemy.speed = 0.3f;
+		babyshark.speed = 0.3f;
+		specialshark.speed = 0.2f;
+		lastshark.speed = 0.2f;
 	}
 	else if (point >= 200)
 	{
 		coinMax = 3;
-		sharkMax = 0.2f;
-		babyMax = 0.3f;
-		bossMax = 0.3f;
+		enemy.speed = 0.3f;
+		babyshark.speed = 0.3f;
+		specialshark.speed = 0.2f;
+		lastshark.speed = 0.2f;
 	}
 	else if (point >= 100)
 	{
 		coinMax = 2;
-		sharkMax = 0.2f;
-		babyMax = 0.3f;
-		bossMax = 0.2f;
+		enemy.speed = 0.2f;
+		babyshark.speed = 0.3f;
+		specialshark.speed = 0.2f;
+		lastshark.speed = 0.2f;
+	}
+	else if (point >= 50)
+	{
+		coinMax = 1;
+		enemy.speed = 0.2f;
+		babyshark.speed = 0.2f;
+		specialshark.speed = 0.2f;
+		lastshark.speed = 0.2f;
 	}
 	else if (point >= 0)
 	{
 		coinMax = 1;
-		sharkMax = 0.2f;
-		babyMax = 0.2f;
-		bossMax = 0.2f;
+		enemy.speed = 0.2f;
+		babyshark.speed = 0.2f;
+		specialshark.speed = 0.2f;
+		lastshark.speed = 0.2f;
 	}
-	
 }
 
 void Game::DrawGameOver()
@@ -479,8 +578,13 @@ void Game::Reset()
 	point = 0;
 	player.body.setPosition(450.f, 300.f);
 	enemy.shark.setPosition(-250, float(rand() % (460 - 260 + 1) + 260));
-	babyshark.Reset();
+	babyshark.baby.setPosition(1100, 400);
 	specialshark.boss.setPosition(0, 600);
+	lastshark.last.setPosition(1200, 500);
+	enemy.speed = 0.2;
+	babyshark.speed = 0.2;
+	specialshark.speed = 0.2;
+	lastshark.speed = 0.2;
 	shieldClock.restart();
 	healClock.restart();
 	bonusClock.restart();
@@ -493,6 +597,7 @@ void Game::Draw(RenderWindow& window)
 		sharkTime[0] = sharkClock[0].getElapsedTime().asMilliseconds();
 		sharkTime[1] = sharkClock[1].getElapsedTime().asMilliseconds();
 		sharkTime[2] = sharkClock[2].getElapsedTime().asMilliseconds();
+		sharkTime[3] = sharkClock[3].getElapsedTime().asMilliseconds();
 
 		background.Draw(window);
 		window.draw(quit);
@@ -510,12 +615,24 @@ void Game::Draw(RenderWindow& window)
 		window.draw(hpBarBase);
 		window.draw(hpBar);
 		item.Draw(window);
-		specialshark.Draw(window);
-		specialshark.Update();
-		BossCollision();
-		babyshark.Draw(window);
-		babyshark.Update();
-		BabyCollision();
+		if (point >= 1600)
+		{
+			lastshark.Draw(window);
+			lastshark.Update();
+			LastCollision();
+		}
+		if (point >= 400)
+		{
+			specialshark.Draw(window);
+			specialshark.Update();
+			BossCollision();
+		}
+		if (point >= 50)
+		{
+			babyshark.Draw(window);
+			babyshark.Update();
+			BabyCollision();
+		}
 		enemy.Update();
 		enemy.Draw(window);
 		SharkCollision();

@@ -18,8 +18,6 @@ public:
 	RectangleShape boss;
 	unsigned int row;
 	float speed;
-	bool bossState;
-	bool bossCheck;
 
 private:
 	Spcanimation spcanimation;
@@ -29,7 +27,5 @@ private:
 	int animationFrame;
 	bool faceRight;
 	bool moveRight;
-	int dir;
-
 };
 

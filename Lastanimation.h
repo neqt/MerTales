@@ -2,11 +2,11 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-class Spcanimation
+class Lastanimation
 {
 public:
-	Spcanimation(Vector2u imageCount, float switchTime);
-	~Spcanimation();
+	Lastanimation(Vector2u imageCount, float switchTime);
+	~Lastanimation();
 
 	void Update(int row, float time, bool faceRight);
 
@@ -15,7 +15,7 @@ public:
 private:
 	Vector2u imageCount;
 	Vector2u currentImage;
-	Texture spcTexture;
+	Texture lastTexture;
 
 	float totalTime;
 	float switchTime;

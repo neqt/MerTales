@@ -1,5 +1,5 @@
-nep 5556
-supitcha 4011
-pulsiri 308
+supitcha 6401
+pulsiri 1308
+c 210
 kmitl 64
 ce 60

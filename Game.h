@@ -8,6 +8,7 @@
 #include "Animation.h"
 #include "Babyshark.h"
 #include "Specialshark.h"
+#include "Lastshark.h"
 #include "Item.h"
 #include "Song.h"
 #include "Score.h"
@@ -25,6 +26,7 @@ public:
 	void SharkCollision();
 	void BabyCollision();
 	void BossCollision();
+	void LastCollision();
 	void ScoreUpdate();
 	void HpUpdate();
 	void HarderUpdate();
@@ -38,14 +40,15 @@ public:
 private:
 	Event event;
 	Font font;
-	Clock sharkClock[3];
-	long double sharkTime[3];
+	Clock sharkClock[4];
+	long double sharkTime[4];
 
 	Player player;
 	Coin coin[10];
 	Enemy enemy;
 	Babyshark babyshark;
 	Specialshark specialshark;
+	Lastshark lastshark;
 	Item item;
 	Song song;
 	Background background;
@@ -58,9 +61,6 @@ private:
 	Texture bgTexture;
 
 	int coinMax;
-	int sharkMax;
-	int babyMax;
-	int bossMax;
 
 	RectangleShape quit;
 	Texture quitTexture;

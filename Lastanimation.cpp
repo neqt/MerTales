@@ -1,23 +1,23 @@
-#include "Spcanimation.h"
+#include "Lastanimation.h"
 
-Spcanimation::Spcanimation(Vector2u imageCount, float switchTime)
+Lastanimation::Lastanimation(Vector2u imageCount, float switchTime)
 {
 	this->imageCount = imageCount;
 	this->switchTime = switchTime;
 	totalTime = 0.f;
 	currentImage.x = 0;
 
-	spcTexture.loadFromFile("Textures/shark11.png");
+	lastTexture.loadFromFile("Textures/shark10.png");
 
-	uvRect.width = spcTexture.getSize().x / 3;
-	uvRect.height = spcTexture.getSize().y / 2;
+	uvRect.width = lastTexture.getSize().x / 3;
+	uvRect.height = lastTexture.getSize().y / 2;
 }
 
-Spcanimation::~Spcanimation()
+Lastanimation::~Lastanimation()
 {
 }
 
-void Spcanimation::Update(int row, float time, bool faceRight)
+void Lastanimation::Update(int row, float time, bool faceRight)
 {
 	currentImage.y = row;
 	totalTime += time;

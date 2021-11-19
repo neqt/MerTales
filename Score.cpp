@@ -41,7 +41,6 @@ Score::Score()
 		scores[i].setPosition(650, 200 + (i * 80));
 		scores[i].setFont(font);
 	}
-	
 }
 
 Score::~Score()

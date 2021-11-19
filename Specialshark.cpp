@@ -8,12 +8,9 @@ int randBoss(int start, int stop) {
 Specialshark::Specialshark(Vector2u imageCount, float switchTime) :
 	spcanimation(imageCount, switchTime)
 {
-	dir = randBoss(1, 6);
-	speed = 0.3f;
+	speed = 0.2f;
 	row = 1;
 	faceRight = true;
-	bossState = false;
-	bossCheck = false;
 
 	bossTexture.loadFromFile("Textures/shark11.png");
 	boss.setTexture(&bossTexture);
@@ -34,7 +31,7 @@ void Specialshark::Update()
 		boss.move(speed, 0.f);
 		if (boss.getPosition().x > 1100)
 		{
-			boss.setPosition(boss.getPosition().x, randBoss(200, 500));
+			boss.setPosition(boss.getPosition().x, randBoss(200, 600));
 			faceRight = false;
 		}
 	}
@@ -43,7 +40,7 @@ void Specialshark::Update()
 		boss.move(-speed, 0.f);
 		if (boss.getPosition().x < -250)
 		{
-			boss.setPosition(boss.getPosition().x, randBoss(200, 500));
+			boss.setPosition(boss.getPosition().x, randBoss(200, 600));
 			faceRight = true;
 		}
 	}

@@ -11,12 +11,10 @@ Babyshark::Babyshark(Vector2u imageCount, float switchTime) :
 	speed = 0.2f;
 	row = 1;
 	faceRight = true;
-	babyState = false;
-	babyCheck = false;
 
 	babyTexture.loadFromFile("Textures/shark8.png");
 	baby.setTexture(&babyTexture);
-	baby.setSize(Vector2f(90.f, 70.f));
+	baby.setSize(Vector2f(110.f, 80.f));
 	baby.setPosition(1100, randBaby(200, 600));
 
 }
@@ -34,7 +32,7 @@ void Babyshark::Update()
 		baby.move(speed, 0.f);
 		if (baby.getPosition().x > 1100)
 		{
-			baby.setPosition(baby.getPosition().x, randBaby(240, 480));
+			baby.setPosition(baby.getPosition().x, randBaby(200, 600));
 			faceRight = false;
 		}
 	}
@@ -43,18 +41,13 @@ void Babyshark::Update()
 		baby.move(-speed, 0.f);
 		if (baby.getPosition().x < -250)
 		{
-			baby.setPosition(baby.getPosition().x, randBaby(200, 500));
+			baby.setPosition(baby.getPosition().x, randBaby(200, 600));
 			faceRight = true;
 		}
 	}
 
 	babyanimation.Update(row, time, faceRight);
 	baby.setTextureRect(babyanimation.uvRect);
-}
-
-void Babyshark::Reset()
-{
-	baby.setPosition(1100, randBaby(200, 600));
 }
 
 void Babyshark::Draw(RenderWindow& window)

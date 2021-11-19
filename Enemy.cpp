@@ -12,7 +12,7 @@ Enemy::Enemy(Vector2u imageCount, float switchTime) :
 
 	shark.setSize(Vector2f(190.f, 120.f));
 	shark.setTexture(&sharkTexture);
-	shark.setPosition(-250, float(rand() % (460 - 260 + 1) + 260));
+	shark.setPosition(-250, float(rand() % (550 - 250 + 1) + 250));
 }
 
 Enemy::~Enemy()
@@ -27,7 +27,7 @@ void Enemy::Update()
 		shark.move(speed, 0.f);
 		if (shark.getPosition().x > 1100)
 		{
-			shark.setPosition(shark.getPosition().x, float(rand() % (460 - 260 + 1) + 260));
+			shark.setPosition(shark.getPosition().x, float(rand() % (550 - 250 + 1) + 250));
 			faceRight = false;
 		}
 		if (bounce)
@@ -40,7 +40,7 @@ void Enemy::Update()
 		shark.move(-speed, 0.f);
 		if (shark.getPosition().x < -250)
 		{
-			shark.setPosition(shark.getPosition().x, float(rand() % (460 - 260 + 1) + 260));
+			shark.setPosition(shark.getPosition().x, float(rand() % (550 - 250 + 1) + 250));
 			faceRight = true;
 		}
 		if (!bounce)

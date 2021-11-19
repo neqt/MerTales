@@ -156,6 +156,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Lastanimation.cpp" />
+    <ClCompile Include="Lastshark.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Song.cpp" />
@@ -174,6 +176,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Lastanimation.h" />
+    <ClInclude Include="Lastshark.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Song.h" />
     <ClInclude Include="Player.h" />
